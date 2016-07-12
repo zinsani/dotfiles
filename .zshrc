@@ -101,3 +101,9 @@ fi
 
 export NVM_DIR="/Users/jsp/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+###-tns-completion-start-###
+if [ -f /Users/parkjinsan/.tnsrc ]; then 
+    source /Users/parkjinsan/.tnsrc 
+fi
+###-tns-completion-end-###

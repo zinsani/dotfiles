@@ -9,3 +9,9 @@ if [ -f /Users/jsp/.tnsrc ]; then
     source /Users/jsp/.tnsrc 
 fi
 ###-tns-completion-end-###
+
+###-tns-completion-start-###
+if [ -f /Users/parkjinsan/.tnsrc ]; then 
+    source /Users/parkjinsan/.tnsrc 
+fi
+###-tns-completion-end-###

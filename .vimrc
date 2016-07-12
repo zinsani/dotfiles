@@ -37,6 +37,7 @@ Plugin 'AutoComplPop'
 Plugin 'valloric/youcompleteme'
 Plugin 'ternjs/tern_for_vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'leafgarland/typescript-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -50,6 +51,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+let g:typescript_indent_disable = 1
 
 "set regexpengine=1
 "let g:javascript_conceal_function   = "ƒ"
@@ -120,16 +122,16 @@ set splitbelow
 set clipboard=unnamed
 
 " Status
-"set laststatus=2
-"set statusline=%<%f\                     " Filename
-"set statusline+=%w%h%m%r                 " Options
-"set statusline+=%{fugitive#statusline()} " Git Hotness
-"set statusline+=\ [%{&ff}/%Y]            " Filetype
-"set statusline+=\ [%{getcwd()}]          " Current dir
-"set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set laststatus=2
+set statusline=%<%f\                     " Filename
+set statusline+=%w%h%m%r                 " Options
+set statusline+=%{fugitive#statusline()} " Git Hotness
+set statusline+=\ [%{&ff}/%Y]            " Filetype
+set statusline+=\ [%{getcwd()}]          " Current dir
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 set wildignore+=*.so,*.swp,*.zip,*.pyc
 set wildignore+=*.o,*.out,*.obj,*.so,*.pyc
