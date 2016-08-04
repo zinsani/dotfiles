@@ -120,16 +120,16 @@ set splitbelow
 set clipboard=unnamed
 
 " Status
-"set laststatus=2
-"set statusline=%<%f\                     " Filename
-"set statusline+=%w%h%m%r                 " Options
-"set statusline+=%{fugitive#statusline()} " Git Hotness
-"set statusline+=\ [%{&ff}/%Y]            " Filetype
-"set statusline+=\ [%{getcwd()}]          " Current dir
-"set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set laststatus=2
+set statusline=%<%f\                     " Filename
+set statusline+=%w%h%m%r                 " Options
+set statusline+=%{fugitive#statusline()} " Git Hotness
+set statusline+=\ [%{&ff}/%Y]            " Filetype
+set statusline+=\ [%{getcwd()}]          " Current dir
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 set wildignore+=*.so,*.swp,*.zip,*.pyc
 set wildignore+=*.o,*.out,*.obj,*.so,*.pyc
