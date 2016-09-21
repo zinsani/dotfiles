@@ -3,6 +3,8 @@ export ZSH=~/.oh-my-zsh
 export EDITOR="vim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -62,9 +64,6 @@ export PATH="./node_modules/.bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-
 source $ZSH/oh-my-zsh.sh
 # source $ZSH/lib/alias.zsh
 
@@ -93,17 +92,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-###-tns-completion-start-###
-if [ -f /Users/jsp/.tnsrc ]; then 
-    source /Users/jsp/.tnsrc 
-fi
-###-tns-completion-end-###
-
-export NVM_DIR="/Users/jsp/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 ###-tns-completion-start-###
-if [ -f /Users/parkjinsan/.tnsrc ]; then 
-    source /Users/parkjinsan/.tnsrc 
+if [ -f $HOME/.tnsrc ]; then 
+    source $HOME/.tnsrc 
 fi
 ###-tns-completion-end-###
