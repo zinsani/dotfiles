@@ -37,6 +37,7 @@ Plugin 'AutoComplPop'
 Plugin 'valloric/youcompleteme'
 Plugin 'ternjs/tern_for_vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'leafgarland/typescript-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -50,6 +51,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+let g:typescript_indent_disable = 1
 
 "set regexpengine=1
 "let g:javascript_conceal_function   = "ƒ"
