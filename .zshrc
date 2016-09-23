@@ -5,6 +5,7 @@ export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 export NVM_DIR="$HOME/.nvm"
 . "$(brew --prefix nvm)/nvm.sh"
+nvm use 4.5.0
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
