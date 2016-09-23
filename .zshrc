@@ -3,10 +3,12 @@ export ZSH=~/.oh-my-zsh
 export EDITOR="vim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
+
 export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
 nvm alias default 4.5.0
-nvm use default
+nvm use node
 
 
 # Set name of the theme to load.
@@ -101,3 +103,5 @@ if [ -f $HOME/.tnsrc ]; then
     source $HOME/.tnsrc 
 fi
 ###-tns-completion-end-###
+
+source $HOME/.bashrc
