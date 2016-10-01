@@ -7,8 +7,6 @@ export VISUAL=$EDITOR
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-nvm alias default 4.5.0
-nvm use node
 
 
 # Set name of the theme to load.
