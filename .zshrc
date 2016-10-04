@@ -3,8 +3,11 @@ export ZSH=~/.oh-my-zsh
 export EDITOR="vim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
+
 export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -98,3 +101,5 @@ if [ -f $HOME/.tnsrc ]; then
     source $HOME/.tnsrc 
 fi
 ###-tns-completion-end-###
+
+source $HOME/.bashrc
