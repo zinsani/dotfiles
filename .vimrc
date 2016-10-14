@@ -38,6 +38,7 @@ Plugin 'valloric/youcompleteme'
 Plugin 'ternjs/tern_for_vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'mattn/emmet-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -233,7 +234,7 @@ let g:tagbar_autoclose = 1
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|platforms|plugins)$',
+      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|platforms|build|plugins)$',
       \ 'file': '\.so$\|\.pyc$' }
 
 " ctrlp exclude
