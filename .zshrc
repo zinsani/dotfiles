@@ -8,7 +8,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 
-
+DEFAULT_USER="parkjinsan"
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -103,3 +103,4 @@ fi
 ###-tns-completion-end-###
 
 source $HOME/.bashrc
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
