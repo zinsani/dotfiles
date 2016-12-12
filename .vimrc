@@ -334,3 +334,5 @@ nnoremap <Alt-Left> <C-O>
 
 "iTerm color set
 set t_Co=256
+
+autocmd BufRead *.as set filetype=actionscript
