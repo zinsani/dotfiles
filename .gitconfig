@@ -10,12 +10,24 @@
 	editor = /Applications/MacVim.app/Contents/MacOS/Vim
 	autocrlf = input
 	crlf = input
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
-[mergetool "sourcetree"]
-  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
+; [difftool "sourcetree"]
+;   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+;   path = 
+; [mergetool "sourcetree"]
+;   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+;   trustExitCode = true
+;
+[diff]
+	tool = diffmerge
+[difftool "diffmerge"]
+	cmd = /usr/local/bin/diffmerge \"$LOCAL\" \"$REMOTE\"
+[merge]
+  tool = unityyamlmerge
+
+[mergetool "unityyamlmerge"]
+  trustExitCode = false
+  cmd = '<path to UnityYAMLMerge>' merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
+
 [push]
   default = matching
 [alias]
@@ -32,4 +44,20 @@
   meld=!~/git-meld.pl
   df=difftool
   ff = flow feature
-
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
