@@ -7,7 +7,7 @@
   email = zinsani@gmail.com
 [core]
   excludesfile = $HOME/.gitignore_global
-	editor = /Applications/MacVim.app/Contents/MacOS/Vim
+	editor = vim 
 	autocrlf = input
 	crlf = input
 ; [difftool "sourcetree"]
