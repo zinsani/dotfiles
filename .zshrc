@@ -3,6 +3,7 @@ export ZSH=~/.oh-my-zsh
 export EDITOR="vim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -66,6 +67,8 @@ export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/mysql/b
 export PATH="./node_modules/.bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# neovim
+export PATH="/usr/local/opt/luajit-openresty/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 # source $ZSH/lib/alias.zsh
@@ -103,6 +106,7 @@ fi
 ###-tns-completion-end-###
 
 source $HOME/.bashrc
+source $HOME/.profile
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
@@ -110,3 +114,10 @@ eval "$(jenv init -)"
 # export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
 # alias jenv_set_java_home='export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"'
 
+export PATH="$PATH:$HOME/.dotnet/tools"
+
+###-tns-completion-start-###
+if [ -f /Users/parkjinsan/.tnsrc ]; then 
+    source /Users/parkjinsan/.tnsrc 
+fi
+###-tns-completion-end-###

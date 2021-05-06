@@ -3,20 +3,13 @@
   smudge = git-lfs smudge -- %f
   required = true
 [user]
-  name = zinsani
+  name = jsp
   email = zinsani@gmail.com
 [core]
   excludesfile = $HOME/.gitignore_global
-	editor = /Applications/MacVim.app/Contents/MacOS/Vim
 	autocrlf = input
 	crlf = input
-; [difftool "sourcetree"]
-;   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-;   path = 
-; [mergetool "sourcetree"]
-;   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-;   trustExitCode = true
-;
+
 [diff]
 	tool = diffmerge
 [difftool "diffmerge"]
@@ -30,7 +23,6 @@
 
 [push]
   default = matching
-[alias]
 [alias]
   st=status
   ci=commit
