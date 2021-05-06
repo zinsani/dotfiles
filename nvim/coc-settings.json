@@ -1,0 +1,25 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "elm"
+  ],
+  "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ],
+      "trace.server": "verbose",
+      "initializationOptions": {
+        "elmPath": "elm",
+        "elmFormatPath": "elm-format",
+        "elmTestPath": "elm-test",
+        "disableElmLSDiagnostics": false,
+        "skipInstallPackageConfirmation": false
+      }
+    }
+  },
+  "codeLens.enable": true
+}
