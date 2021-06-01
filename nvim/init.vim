@@ -87,7 +87,8 @@ filetype plugin indent on
 syntax on
 
 " Map <leader>to `,`
-let mapleader=','
+" let mapleader=','
+let mapleader=' '
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -241,7 +242,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
@@ -270,16 +271,6 @@ let g:LanguageClient_rootMarkers = {
   \ }
 
 
-" UltiSnipet Settings
-" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
-" - https://github.com/Valloric/YouCompleteMe
-" - https://github.com/nvim-lua/completion-nvim
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 colorscheme gruvbox
 set bg=dark
@@ -299,11 +290,11 @@ inoremap jj <ESC>
 
 
 "fugitive
-nmap <leader>gs :Gstatus<CR>
+nmap <leader>gs :G status<CR>
 nmap <leader>gh :diffget //2<CR>
 nmap <leader>gl :diffget //3<CR>
-nmap <leader>gg :Glog<CR>
-nmap <leader>gp :Gpush<CR>
+nmap <leader>gg :G log<CR>
+nmap <leader>gp :G push<CR>
 
 " moving between windows - (Option + hjkl)
 noremap <M-h>     <C-W>h
@@ -311,18 +302,6 @@ noremap <M-j>     <C-W>j
 noremap <M-k>     <C-W>k
 noremap <M-l>     <C-W>l
 
-" Airline symbols
-" let g:airline_powerline_fonts = 1
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = ''
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
-"
 " OmniSharp: {{{
 
 " augroup OmniSharpIntegrations
@@ -363,6 +342,16 @@ let g:OmniSharp_highlight_groups = {
 " }}}"
 
 
+" UltiSnipet Settings
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " Smarter tab line 활성화: 모든 파일 버퍼 출력
 let g:airline#extensions#tabline#enabled = 1
@@ -376,3 +365,25 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Powerline-font 활성화
 let g:airline_powerline_fonts = 1 
+"
+""" Workman
+" Map to Alt-yneo instead of hjkl
+" nnoremap ^[y h
+" nnoremap ^[n j
+" nnoremap ^[e k
+" nnoremap ^[o l
+
+" vnoremap ^[y h
+" vnoremap ^[n j
+" vnoremap ^[e k
+" vnoremap ^[o l
+
+nnoremap \ h
+nnoremap ˜ j
+nnoremap ´ k
+nnoremap ø l
+
+vnoremap ˚ h
+vnoremap ¬ j
+vnoremap ≤ k
+vnoremap ≥ l
