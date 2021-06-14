@@ -5,42 +5,38 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 " Plugins
-call plug#begin('~/.vim/plugged')
+" call plug#begin('~/.vim/plugged')
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
-" Plug 'scrooloose/nerdtree'
-"Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
-" Plugin 'kien/ctrlp.vim'
 Plug 'Yggdroot/indentLine'
+
 " Syntax highlighting
 Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
 
-" Language server client
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-" (Optional) Multi-entry selection UI.
-" ColorScheme
+" Color theme
 Plug 'morhetz/gruvbox'
 
+" Find files
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-"
+
 " Track the engine.
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
 
+" A collection of language packs for Vim.
+Plug 'sheerun/vim-polyglot'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'dense-analysis/ale'
 
 " Initialize plugin system
 call plug#end()
@@ -72,23 +68,32 @@ set wildignore+=*.o,*.out,*.obj,*.so,*.pyc
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*/.sass-cache/*
 set wildignore+=*.swp,*~,._*
+set undodir=~/.config/nvim/undodir " set undotree file directory
+set undofile " set undotree to save to file
 
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
 
 " Set this to 1 to use ultisnips for snippet handling
-let s:using_snippets = 1
+" let s:using_snippets = 1
 
 " Fix backspace indent
 set backspace=indent,eol,start
 
 filetype plugin indent on
+filetype plugin on
 syntax on
 
 " Map <leader>to `,`
 " let mapleader=','
 let mapleader=' '
+
+nnoremap Y y$
+vnoremap / /\v
+" nnoremap <CR> :nohlsearch<CR>
+nnoremap <leader><space> :nohlsearch<CR>
+inoremap jj <ESC>
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -259,42 +264,66 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:coc_global_extensions = [
+  \ 'coc-emmet', 
+  \ 'coc-css', 
+  \ 'coc-html', 
+  \ 'coc-json', 
+  \ 'coc-prettier', 
+  \ 'coc-tsserver', 
+  \ 'coc-snippets',
   \ 'coc-tsserver'
   \ ]
 
-let g:LanguageClient_serverCommands = {
-  \ 'elm': ['elm-language-server'],
-  \ }
+" ALE (Asynchronous Lint Engine)
+let g:ale_fixers = {
+ \ 'javascript': ['eslint']
+ \ }
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+let g:ale_fix_on_save = 1
+let g:ale_linters = {
+\ 'cs': ['OmniSharp']
+\}
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_list_window_size = 5
 
-let g:LanguageClient_rootMarkers = {
-  \ 'elm': ['elm.json'],
-  \ }
+" let g:LanguageClient_serverCommands = {
+"   \ 'elm': ['elm-language-server'],
+"   \ }
 
+" let g:LanguageClient_rootMarkers = {
+"   \ 'elm': ['elm.json'],
+"   \ }
 
-
+" Color theme settings
+if (has("termguicolors"))
+ set termguicolors
+endif
 colorscheme gruvbox
 set bg=dark
 highlight Normal ctermbg=black ctermfg=white
+
 " FZF
 nnoremap <silent> <leader>fp :Files<CR>
+nnoremap <silent> <leader>fgp :GFiles<CR>
 nnoremap <silent> <leader>fh :History<CR>
 nnoremap <silent> <leader>fl :Lines<CR>
 nnoremap <silent> <leader>fc :BCommits<CR>
 nnoremap <silent> <leader>fco :Commits<CR>
-
-nnoremap Y y$
-vnoremap / /\v
-nnoremap <CR> :nohlsearch<CR>
-nnoremap <leader><space> :nohlsearch<CR>
-inoremap jj <ESC>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
 
 
 "fugitive
-nmap <leader>gs :G status<CR>
+nmap <leader>gs :Gstatus<CR>
 nmap <leader>gh :diffget //2<CR>
 nmap <leader>gl :diffget //3<CR>
-nmap <leader>gg :G log<CR>
-nmap <leader>gp :G push<CR>
+nmap <leader>gg :Glog<CR>
+nmap <leader>gp :Gpush<CR>
 
 " moving between windows - (Option + hjkl)
 noremap <M-h>     <C-W>h
@@ -309,7 +338,69 @@ noremap <M-l>     <C-W>l
 "   autocmd User OmniSharpProjectUpdated,OmniSharpReady call lightline#update()
 " augroup END
 
-set completeopt=menuone,noinsert,noselect
+" Don't autoselect first omnicomplete option, show options even if there is only
+" one (so the preview documentation is accessible). Remove 'preview', 'popup'
+" and 'popuphidden' if you don't want to see any documentation whatsoever.
+" Note that neovim does not support `popuphidden` or `popup` yet:
+" https://github.com/neovim/neovim/issues/10996
+if has('patch-8.1.1880')
+  set completeopt=longest,menuone,popuphidden
+  " Highlight the completion documentation popup background/foreground the same as
+  " the completion menu itself, for better readability with highlighted
+  " documentation.
+  set completepopup=highlight:Pmenu,border:off
+else
+  set completeopt=longest,menuone,preview
+  " Set desired preview window height for viewing documentation.
+  set previewheight=5
+endif
+
+" Tell ALE to use OmniSharp for linting C# files, and no other linters.
+" let g:ale_linters = { 'cs': ['OmniSharp'] }
+
+augroup omnisharp_commands
+  autocmd!
+
+  " Show type information automatically when the cursor stops moving.
+  " Note that the type is echoed to the Vim command line, and will overwrite
+  " any other messages in this space including e.g. ALE linting messages.
+  autocmd CursorHold *.cs OmniSharpTypeLookup
+
+  " The following commands are contextual, based on the cursor position.
+  autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>fu <Plug>(omnisharp_find_usages)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>fi <Plug>(omnisharp_find_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>pd <Plug>(omnisharp_preview_definition)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>pi <Plug>(omnisharp_preview_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>t <Plug>(omnisharp_type_lookup)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>d <Plug>(omnisharp_documentation)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>fs <Plug>(omnisharp_find_symbol)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>fx <Plug>(omnisharp_fix_usings)
+  autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+  autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+
+  " Navigate up and down by method/property/field
+  autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
+  autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
+  " Find all code errors/warnings for the current solution and populate the quickfix window
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>gcc <Plug>(omnisharp_global_code_check)
+  " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>ca <Plug>(omnisharp_code_actions)
+  autocmd FileType cs xmap <silent> <buffer> <Leader><Leader>ca <Plug>(omnisharp_code_actions)
+  " Repeat the last code action performed (does not use a selector)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>. <Plug>(omnisharp_code_action_repeat)
+  autocmd FileType cs xmap <silent> <buffer> <Leader><Leader>. <Plug>(omnisharp_code_action_repeat)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>= <Plug>(omnisharp_code_format)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>rn <Plug>(omnisharp_rename)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>re <Plug>(omnisharp_restart_server)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>st <Plug>(omnisharp_start_server)
+  autocmd FileType cs nmap <silent> <buffer> <Leader><Leader>sp <Plug>(omnisharp_stop_server)
+augroup END
+
+" set completeopt=menuone,noinsert,noselect
 " set completepopup=highlight:Pmenu,border:off
 
 let g:OmniSharp_popup_position = 'peek'
@@ -332,26 +423,36 @@ let g:OmniSharp_popup_mappings = {
 \ 'pageUp': ['<C-b>', '<PageUp>']
 \}
 
-if s:using_snippets
-  let g:OmniSharp_want_snippet = 1
-endif
+" if s:using_snippets
+"   let g:OmniSharp_want_snippet = 1
+" endif
 
 let g:OmniSharp_highlight_groups = {
 \ 'ExcludedCode': 'NonText'
 \}
-" }}}"
 
+" Use Roslyin and also better performance than HTTP
+let g:OmniSharp_server_stdio = 1
+let g:omnicomplete_fetch_full_documentation = 1
+
+" Timeout in seconds to wait for a response from the server
+let g:OmniSharp_timeout = 30
+
+" this will make it so any subsequent C# files that you open are using the same solution and you aren't prompted again (so you better choose the right solution the first time around :) )
+let g:OmniSharp_autoselect_existing_sln = 1
+
+" }}}"
 
 " UltiSnipet Settings
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<Tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsEditSplit="vertical"
 
 " Smarter tab line 활성화: 모든 파일 버퍼 출력
 let g:airline#extensions#tabline#enabled = 1
@@ -377,6 +478,9 @@ let g:airline_powerline_fonts = 1
 " vnoremap ^[n j
 " vnoremap ^[e k
 " vnoremap ^[o l
+
+map ]q :cn<CR>
+map [q :cp<CR>
 
 nnoremap \ h
 nnoremap ˜ j

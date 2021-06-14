@@ -4,12 +4,13 @@ export EDITOR="vim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-
+alias vim="nvim"
+alias oldvim="\vim"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 
-DEFAULT_USER="parkjinsan"
+DEFAULT_USER="jsp"
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -65,6 +66,7 @@ plugins=(git bundler osx rake ruby)
 ANDROID_HOME=/usr/local/opt/android-sdk
 export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/mysql/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin"
 export PATH="./node_modules/.bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # neovim
@@ -117,7 +119,15 @@ eval "$(jenv init -)"
 export PATH="$PATH:$HOME/.dotnet/tools"
 
 ###-tns-completion-start-###
-if [ -f /Users/parkjinsan/.tnsrc ]; then 
-    source /Users/parkjinsan/.tnsrc 
+if [ -f /Users/jsp/.tnsrc ]; then 
+    source /Users/jsp/.tnsrc 
 fi
 ###-tns-completion-end-###
+
+fpath+=/Users/jsp/.zsh/pure
+autoload -U promptinit; promptinit
+prompt pure
+
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
