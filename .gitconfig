@@ -4,7 +4,7 @@
   required = true
 [user]
   name = jsp
-  email = zinsani@gmail.com
+  email = jsp@easywith.com
 [core]
   excludesfile = $HOME/.gitignore_global
 	editor = nvim 
@@ -54,5 +54,3 @@
 	added = yellow
 	changed = green
 	untracked = cyan
-[pull]
-	rebase = false
