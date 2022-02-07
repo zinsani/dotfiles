@@ -1,13 +1,5 @@
 source $HOME/.bashrc
 source $HOME/.profile
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
-export EDITOR="nvim"
-export USE_EDITOR=$EDITOR
-export VISUAL=$EDITOR
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 DEFAULT_USER="jsp"
 # Set name of the theme to load.
@@ -20,13 +12,17 @@ DEFAULT_USER="jsp"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jsp/.oh-my-zsh"
+export EDITOR="nvim"
+export USE_EDITOR=$EDITOR
+export VISUAL=$EDITOR
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-
+source $ZSH/oh-my-zsh.sh
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -87,7 +83,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git bundler osx rake ruby)
+plugins=(git bundler macos rake ruby)
 
 
 # User configuration
