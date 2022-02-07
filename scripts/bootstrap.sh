@@ -7,6 +7,7 @@ mv -f ~/.bashrc ~/backup_dotfiles/.bashrc
 mv -f ~/.tmux.conf ~/backup_dotfiles/.tmux.conf
 mv -f ~/.gitconfig ~/backup_dotfiles/.gitconfig
 mv -f ~/.gitignore_global ~/backup_dotfiles/.gitignore_global
+mv -rf ~/.config/nvim ~/backup_dotfiles/nvim
 
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.zshrc ~/.zshrc
