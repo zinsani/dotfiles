@@ -5,7 +5,7 @@
 	process = git-lfs filter-process
 [user]
   name = jsp
-  email = jsp@easywith.com
+  email = zinsani@gmail.com
 [core]
   excludesfile = $HOME/.gitignore_global
 	editor = nvim 
