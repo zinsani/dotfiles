@@ -28,7 +28,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Track the engine.
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
+Plug 'mlaursen/vim-react-snippets'
 
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
@@ -305,8 +306,9 @@ set bg=dark
 highlight Normal ctermbg=black ctermfg=white
 
 " FZF
-nnoremap <silent> <leader>fp :Files<CR>
-nnoremap <silent> <leader>fgp :GFiles<CR>
+nnoremap <silent> <leader>fp :GFiles<CR>
+nnoremap <silent> <leader>ff :Files<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
 nnoremap <silent> <leader>fh :History<CR>
 nnoremap <silent> <leader>fl :Lines<CR>
 nnoremap <silent> <leader>fc :BCommits<CR>

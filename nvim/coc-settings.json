@@ -1,25 +1,34 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "elm"
-  ],
-  "languageserver": {
-    "elmLS": {
-      "command": "elm-language-server",
-      "filetypes": [
-        "elm"
-      ],
-      "rootPatterns": [
-        "elm.json"
-      ],
-      "trace.server": "verbose",
-      "initializationOptions": {
-        "elmPath": "elm",
-        "elmFormatPath": "elm-format",
-        "elmTestPath": "elm-test",
-        "disableElmLSDiagnostics": false,
-        "skipInstallPackageConfirmation": false
-      }
-    }
-  },
-  "codeLens.enable": true
+    "eslint.autoFixOnSave": true,
+    "coc.preferences.formatOnType":true,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "elm",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "jsx",
+        "tsx",
+        "css"
+    ],
+    "languageserver": {
+        "elmLS": {
+            "command": "elm-language-server",
+            "filetypes": [
+                "elm"
+            ],
+            "rootPatterns": [
+                "elm.json"
+            ],
+            "trace.server": "verbose",
+            "initializationOptions": {
+                "elmPath": "elm",
+                "elmFormatPath": "elm-format",
+                "elmTestPath": "elm-test",
+                "disableElmLSDiagnostics": false,
+                "skipInstallPackageConfirmation": false
+            }
+        }
+    },
+    "codeLens.enable": true
 }
