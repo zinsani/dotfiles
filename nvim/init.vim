@@ -1,5 +1,5 @@
 " Install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
+if empty(glob(stdpath('config')))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
@@ -37,6 +37,7 @@ Plug 'honza/vim-snippets'
 " A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'jlcrochet/vim-razor'
 Plug 'dense-analysis/ale'
 
 " Initialize plugin system
@@ -51,7 +52,7 @@ set tabstop=4
 set softtabstop=0
 set shiftwidth=4
 set expandtab
-set shell=/bin/sh
+" set shell=/bin/sh
 set smartcase
 set smarttab
 set smartindent   
@@ -93,7 +94,7 @@ let mapleader=' '
 nnoremap Y y$
 vnoremap / /\v
 " nnoremap <CR> :nohlsearch<CR>
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader><ESC> :nohlsearch<CR>
 inoremap jj <ESC>
 
 " Give more space for displaying messages.
@@ -275,6 +276,9 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver'
   \ ]
 
+autocmd Filetype css,javascript,typescript,json setlocal tabstop=2
+autocmd Filetype css,javascript,typescript,json setlocal shiftwidth=2
+
 " ALE (Asynchronous Lint Engine)
 let g:ale_fixers = {
  \ 'javascript': ['eslint']
@@ -289,13 +293,13 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_list_window_size = 5
 
-" let g:LanguageClient_serverCommands = {
-"   \ 'elm': ['elm-language-server'],
-"   \ }
+let g:LanguageClient_serverCommands = {
+  \ 'elm': ['elm-language-server'],
+  \ }
 
-" let g:LanguageClient_rootMarkers = {
-"   \ 'elm': ['elm.json'],
-"   \ }
+let g:LanguageClient_rootMarkers = {
+  \ 'elm': ['elm.json'],
+  \ }
 
 " Color theme settings
 if (has("termguicolors"))
@@ -321,11 +325,11 @@ let g:fzf_action = {
 
 
 "fugitive
-nmap <leader>gs :Gstatus<CR>
+nmap <leader>gs :Git <CR>
 nmap <leader>gh :diffget //2<CR>
 nmap <leader>gl :diffget //3<CR>
-nmap <leader>gg :Glog<CR>
-nmap <leader>gp :Gpush<CR>
+nmap <leader>gg :G log<CR>
+nmap <leader>gp :G push<CR>
 
 " moving between windows - (Option + hjkl)
 noremap <M-h>     <C-W>h
@@ -335,10 +339,10 @@ noremap <M-l>     <C-W>l
 
 " OmniSharp: {{{
 
-" augroup OmniSharpIntegrations
-"   autocmd!
-"   autocmd User OmniSharpProjectUpdated,OmniSharpReady call lightline#update()
-" augroup END
+augroup OmniSharpIntegrations
+  autocmd!
+  autocmd User OmniSharpProjectUpdated,OmniSharpReady call lightline#update()
+augroup END
 
 " Don't autoselect first omnicomplete option, show options even if there is only
 " one (so the preview documentation is accessible). Remove 'preview', 'popup'
@@ -434,7 +438,7 @@ let g:OmniSharp_highlight_groups = {
 \}
 
 " Use Roslyin and also better performance than HTTP
-let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_server_stdio = 0
 let g:omnicomplete_fetch_full_documentation = 1
 
 " Timeout in seconds to wait for a response from the server
