@@ -76,6 +76,7 @@ set undofile " set undotree to save to file
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
+set autochdir
 
 " Set this to 1 to use ultisnips for snippet handling
 " let s:using_snippets = 1
