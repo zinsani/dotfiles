@@ -1,5 +1,7 @@
 {
     "eslint.autoFixOnSave": true,
+    "prettier.arrowParens": "avoid",
+    "prettier.tabWidth": 2,
     "coc.preferences.formatOnType":true,
     "coc.preferences.formatOnSaveFiletypes": [
         "elm",
@@ -9,7 +11,8 @@
         "typescriptreact",
         "jsx",
         "tsx",
-        "css"
+        "css",
+        "svelte"
     ],
     "languageserver": {
         "elmLS": {
@@ -30,5 +33,6 @@
             }
         }
     },
-    "codeLens.enable": true
+    "codeLens.enable": true,
+    "svelte.enable-ts-plugin": true
 }

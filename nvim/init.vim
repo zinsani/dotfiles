@@ -39,7 +39,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'jlcrochet/vim-razor'
 Plug 'dense-analysis/ale'
-
+Plug 'mattn/emmet-vim'
 " Initialize plugin system
 call plug#end()
 

@@ -136,3 +136,5 @@ fi
 [[ -f /Users/jsp/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /Users/jsp/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh
 
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
