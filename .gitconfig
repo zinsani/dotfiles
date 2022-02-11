@@ -63,3 +63,5 @@
 	untracked = cyan
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main

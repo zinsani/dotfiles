@@ -1,3 +1,4 @@
+export LC_ALL=ko_KR.UTF-8
 ANDROID_HOME=/usr/local/opt/android-sdk
 export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
@@ -34,9 +35,3 @@ eval "$(jenv init -)"
 # if [ -f /Users/parkjinsan/.tnsrc ]; then 
 #     source /Users/parkjinsan/.tnsrc 
 # fi
-###-tns-completion-end-###
-# export FZF_DEFAULT_COMMAND="fd . $HOME"
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# export FZF_ALT_C_COMMAND="fd -t d . $HOME"
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

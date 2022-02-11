@@ -17,6 +17,12 @@ export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
+###-tns-completion-end-###
+# export FZF_DEFAULT_COMMAND="fd . $HOME"
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
