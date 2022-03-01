@@ -15,7 +15,7 @@ export ZSH="/Users/jsp/.oh-my-zsh"
 export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
 
 ###-tns-completion-end-###
 # export FZF_DEFAULT_COMMAND="fd . $HOME"
@@ -128,7 +128,6 @@ alias gli="glab issue"
 alias glils="gli list" 
 alias glilsa="gli list -A" 
 alias glilswip="gli list -l WIP" 
-# alias glirmwip="gli list -c -l WIP | awk '{print \$1}' | while read num; do if [[ \$num == \#* ]]; then glab issue update \${num:1} -u WIP; fi; done"
 alias glirmwip="gli list -c -l WIP | awk '/^#/ {print \$1}' | while read num; do glab issue update \${num:1} -u WIP; done"
 
 ###-tns-completion-start-###
@@ -144,3 +143,5 @@ fi
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
