@@ -20,4 +20,4 @@ mklink  %userprofile%\.gitconfig %userprofile%\dotfiles\.gitconfig
 mklink  %userprofile%\.gitignore_global %userprofile%\dotfiles\.gitignore_global 
 mkdir %userprofile%\AppData\Local\nvim
 mklink %userprofile%\AppData\Local\nvim\init.vim %userprofile%\dotfiles\nvim\init.vim
-mklink %userprofile%\AppData\Local\nvim\coc-settings.vim %userprofile%\dotfiles\nvim\coc-settings.vim
+mklink %userprofile%\AppData\Local\nvim\coc-settings.json %userprofile%\dotfiles\nvim\coc-settings.json
