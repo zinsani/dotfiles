@@ -28,7 +28,6 @@ export VISUAL=$EDITOR
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-source $ZSH/oh-my-zsh.sh
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -121,7 +120,7 @@ export PATH="/usr/local/opt/luajit-openresty/bin:$PATH"
 alias oldvim="vim"
 alias vim="nvim"
 alias zshconfig="nvim ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ohmyzsh="vim ~/.oh-my-zsh"
 
 # alias remove_wip_from_closed_issues="glab issue list -c | awk '{print \$1}'"
 alias gli="glab issue"
@@ -145,3 +144,4 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+source $ZSH/oh-my-zsh.sh
