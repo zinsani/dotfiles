@@ -67,3 +67,5 @@
 	ff = only
 [init]
 	defaultBranch = main
+[credential "helperselector"]
+	selected = manager-core
