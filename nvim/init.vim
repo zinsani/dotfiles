@@ -18,7 +18,6 @@ Plug 'Yggdroot/indentLine'
 " Syntax highlighting
 Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
 
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " Color theme
 Plug 'morhetz/gruvbox'
@@ -27,11 +26,8 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Track the engine.
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
-
-" Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
 
 " A collection of language packs for Vim.
@@ -40,7 +36,9 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'jlcrochet/vim-razor'
 Plug 'dense-analysis/ale'
 Plug 'mattn/emmet-vim'
+ Plug 'scrooloose/nerdtree'
 " Initialize plugin system
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
 " General settings
@@ -88,13 +86,11 @@ filetype plugin indent on
 filetype plugin on
 syntax on
 
-" Map <leader>to `,`
-" let mapleader=','
 let mapleader=' '
 
 nnoremap Y y$
 vnoremap / /\v
-" nnoremap <CR> :nohlsearch<CR>
+nnoremap <CR> :nohlsearch<CR>
 nnoremap <leader><ESC> :nohlsearch<CR>
 inoremap jj <ESC>
 
@@ -117,17 +113,9 @@ else
   set signcolumn=yes
 endif
 
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-if exists('*complete_info')
-  inoremap <silent><expr> <cr> complete_info(['selected'])['selected'] != -1 ?
-              \"\<C-y>" : "\<C-g>u\<CR>"
-endif
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -498,3 +486,9 @@ vnoremap ˚ h
 vnoremap ¬ j
 vnoremap ≤ k
 vnoremap ≥ l
+
+"NerdTree
+nnoremap <leader>nf :NERDTreeFocus<CR>
+" nnoremap <leader>n :NERDTree<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
+" nnoremap <leader>nf :NERDTreeFind<CR>
