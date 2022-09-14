@@ -1,7 +1,7 @@
 source $HOME/.bashrc
 source $HOME/.profile
 
-DEFAULT_USER="jsp"
+USER="$(whoami)"
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -11,10 +11,7 @@ DEFAULT_USER="jsp"
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jsp/.oh-my-zsh"
-export EDITOR="nvim"
-export USE_EDITOR=$EDITOR
-export VISUAL=$EDITOR
+export ZSH="$HOME/.oh-my-zsh"
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
 
 ###-tns-completion-end-###
@@ -121,6 +118,9 @@ alias oldvim="vim"
 alias vim="nvim"
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
+export EDITOR="nvim"
+export USE_EDITOR=$EDITOR
+export VISUAL=$EDITOR
 
 # alias remove_wip_from_closed_issues="glab issue list -c | awk '{print \$1}'"
 alias gli="glab issue"
@@ -137,7 +137,7 @@ fi
 #
 # tabtab source for electron-forge package
 # uninstall by removing these lines or running `tabtab uninstall electron-forge`
-[[ -f /Users/jsp/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /Users/jsp/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh
+[[ -f $HOME/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh ]] && . $HOME/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh
 
 
 
