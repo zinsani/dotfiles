@@ -94,6 +94,10 @@ plugins=(git bundler macos rake ruby)
 
 # neovim
 export PATH="/usr/local/opt/luajit-openresty/bin:$PATH"
+export PATH="/opt/homebrew/Cellar/git/2.37.3/bin/:$PATH"
+
+# .NET Core
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
