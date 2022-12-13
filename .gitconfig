@@ -7,7 +7,7 @@
   name = jsp
   email = zinsani@gmail.com
 [core]
-  excludesfile = $HOME/.gitignore_global
+  excludesfile = $PROFILE/.gitignore_global
 	editor = nvim 
 	autocrlf = input
 	crlf = input
@@ -72,3 +72,4 @@
 [safe]
 	directory = D:/workspace
 	directory = /Users/Shared/repo/utils
+	directory = D:/work/0_projects/proj2022_KIA_DCS/dev/digital-showcase.el
