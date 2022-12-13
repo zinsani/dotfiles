@@ -36,9 +36,10 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'jlcrochet/vim-razor'
 Plug 'dense-analysis/ale'
 Plug 'mattn/emmet-vim'
- Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " Initialize plugin system
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'leafOfTree/vim-svelte-plugin'
 call plug#end()
 
 " General settings
