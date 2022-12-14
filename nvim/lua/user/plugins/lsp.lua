@@ -6,7 +6,7 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = { "sumneko_lua", "rust_analyzer", "tsserver", "svelte", "omnisharp", "clangd", "cssls",
-		"quick_lint_js", "marksman", "powershell_es", "sqlls", "vuels", "yamlls" }
+	"quick_lint_js", "marksman", "powershell_es", "sqlls", "vuels", "yamlls" }
 local lsp_flags = {
 	-- This is the default in Nvim 0.7+
 	debounce_text_changes = 150,
@@ -53,6 +53,15 @@ for _, lsp in ipairs(servers) do
 			flags = lsp_flags,
 			filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
 			root_dir = function() return vim.loop.cwd() end
+		}
+	elseif (lsp == 'omnisharp' and vim.fn.has('win32') == 1) then
+		local pid = vim.fn.getpid()
+		local omnisharp_bin = vim.fn.has('win32') == 0 and "/opt/homebrew/bin/omnisharp" or
+				vim.fn.environ()['HOMEPATH'] .. '/scoop/apps/omnisharp/current/OmniSharp.exe'
+		lspconfig.omnisharp.setup {
+			cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
+			on_attach = on_attach,
+			flags = lsp_flags
 		}
 	else lspconfig[lsp].setup {
 			on_attach = on_attach,
