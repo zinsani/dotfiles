@@ -5,7 +5,8 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'svelte' }
+local servers = { "sumneko_lua", "rust_analyzer", "tsserver", "svelte", "omnisharp", "clangd", "cssls",
+		"quick_lint_js", "marksman", "powershell_es", "sqlls", "vuels", "yamlls" }
 local lsp_flags = {
 	-- This is the default in Nvim 0.7+
 	debounce_text_changes = 150,
@@ -45,11 +46,20 @@ local on_attach = function(client, bufnr)
 end
 
 for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup {
-		on_attach = on_attach,
-		capabilities = capabilities,
-		flags = lsp_flags
-	}
+	if (lsp == 'typescript') then
+		lspconfig.tsserver.setup {
+			on_attach = on_attach,
+			capabilities = capabilities,
+			flags = lsp_flags,
+			filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
+			root_dir = function() return vim.loop.cwd() end
+		}
+	else lspconfig[lsp].setup {
+			on_attach = on_attach,
+			capabilities = capabilities,
+			flags = lsp_flags
+		}
+	end
 end
 
 -- Emmet
@@ -65,6 +75,7 @@ lspconfig.emmet_ls.setup({
 		"typescriptreact",
 	},
 })
+
 
 local runtime_path = {
 	"?.lua",
