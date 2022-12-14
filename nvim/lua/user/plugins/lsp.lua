@@ -54,7 +54,7 @@ for _, lsp in ipairs(servers) do
 			filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
 			root_dir = function() return vim.loop.cwd() end
 		}
-	elseif (lsp == 'omnisharp' and vim.fn.has('win32') == 1) then
+	elseif (lsp == 'omnisharp') then
 		local pid = vim.fn.getpid()
 		local omnisharp_bin = vim.fn.has('win32') == 0 and "/opt/homebrew/bin/omnisharp" or
 				vim.fn.environ()['HOMEPATH'] .. '/scoop/apps/omnisharp/current/OmniSharp.exe'
