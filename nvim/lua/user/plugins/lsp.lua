@@ -57,7 +57,7 @@ for _, lsp in ipairs(servers) do
 	elseif (lsp == 'omnisharp') then
 		local pid = vim.fn.getpid()
 		local omnisharp_bin = vim.fn.has('win32') == 0 and "/opt/homebrew/bin/omnisharp" or
-				vim.fn.environ()['HOMEPATH'] .. '/scoop/apps/omnisharp/current/OmniSharp.exe'
+				vim.fn.environ()['HOMEDRIVE'] .. vim.fn.environ()['HOMEPATH'] .. '/scoop/apps/omnisharp/current/OmniSharp.exe'
 		lspconfig.omnisharp.setup {
 			cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
 			on_attach = on_attach,
