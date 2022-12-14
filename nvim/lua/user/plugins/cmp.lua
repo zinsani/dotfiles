@@ -190,3 +190,5 @@ cmp.setup.cmdline(':', {
 		{ name = 'cmdline' }
 	})
 })
+
+vim.opt.completeopt = { "menu", "menuone", "noselect" }

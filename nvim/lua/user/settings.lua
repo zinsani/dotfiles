@@ -24,16 +24,12 @@ vim.opt.cursorline = true
 vim.opt.autowrite = true
 vim.opt.wildignore = '*/cache/*,*/tmp/*,*/node_modules/*'
 vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-
-vim.opt.wildignore = {}
 vim.opt.wildignore:append({ "*.so", "*.swp", "*.zip", "*.pyc", "**/.git/**" })
 vim.opt.wildignore:append({ "**/node_modules/**" })
-vim.opt.wildignore:append({ "**/elm-stuff/**", "**/.cache/**", "**/.parcel-cache/**", "**/dist/**" })
+vim.opt.wildignore:append({ "**/elm-stuff/**", "**/.cache/**", "**/.parcel-cache/**" })
 vim.opt.wildignore:append({ "*.o", "*.out", "*.obj", "*.so", "*.pyc" })
 vim.opt.wildignore:append({ "*.zip", "*.tar.gz", "*.tar.bz2", "*.rar", "*.tar.xz" })
 vim.opt.wildignore:append({ "*/.sass-cache/*" })
 vim.opt.wildignore:append({ "*.swp", "*~", "._*" })
-vim.opt.undodir = "~/.config/nvim/undodir"
+vim.opt.undodir = vim.fn.stdpath('config') .. "/undodir"
 vim.opt.undofile = true
-
