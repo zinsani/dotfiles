@@ -7,6 +7,5 @@ if (not status2) then return end
 
 mason_lspconfig.setup({
 	ensure_installed = { "sumneko_lua", "rust_analyzer", "tsserver", "svelte", "omnisharp", "clangd", "cssls",
-		"quick_lint_js", "marksman", "powershell_es", "sqlls", "vuels", "yamlls" }
+		"marksman", "powershell_es", "sqlls", "vuels", "yamlls" }
 })
-

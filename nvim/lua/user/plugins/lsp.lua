@@ -6,7 +6,7 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = { "sumneko_lua", "rust_analyzer", "tsserver", "svelte", "omnisharp", "clangd", "cssls",
-	"quick_lint_js", "marksman", "powershell_es", "sqlls", "vuels", "yamlls" }
+	"marksman", "powershell_es", "sqlls", "vuels", "yamlls" }
 local lsp_flags = {
 	-- This is the default in Nvim 0.7+
 	debounce_text_changes = 150,
