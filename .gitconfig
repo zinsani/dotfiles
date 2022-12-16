@@ -70,7 +70,4 @@
 [credential "helperselector"]
 	selected = manager-core
 [safe]
-	directory = D:/workspace
-	directory = /Users/Shared/repo/utils
-	directory = D:/work/0_projects/proj2022_KIA_DCS/dev/digital-showcase.el
-	directory = D:/work/3_modules/2020_common/utils
+	directory = *
