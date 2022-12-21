@@ -48,7 +48,10 @@ return require('packer').startup(function(use)
 			require("nvim-surround").setup {}
 		end
 	})
+	use "tpope/vim-commentary"
+	use "JoosepAlviste/nvim-ts-context-commentstring"
 	use "ellisonleao/gruvbox.nvim"
+	use "leafgarland/typescript-vim"
 	use "leafOfTree/vim-svelte-plugin"
 	use 'othree/html5.vim'
 	use 'pangloss/vim-javascript'
