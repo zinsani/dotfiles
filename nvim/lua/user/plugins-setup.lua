@@ -31,6 +31,7 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-buffer' -- LSP source for buffer
 	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
 	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+	use 'MunifTanjim/prettier.nvim'
 	use { 'jose-elias-alvarez/null-ls.nvim', requires = { { 'nvim-lua/plenary.nvim' } } }
 	use {
 		"williamboman/mason.nvim",

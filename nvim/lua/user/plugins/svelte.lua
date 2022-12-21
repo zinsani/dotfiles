@@ -17,5 +17,6 @@ svelte_theme.setup {}
 vim.opt.svelte_plugin_use_typescript = 1
 vim.opt.svelte_plugin_use_sass = 1
 vim.opt.svelte_plugin_has_init_indent = 2
-vim.opt.svelte_preprocessor_tags = { { name = 'typescript', tag = 'script', as = 'typescript' } }
-vim.opt.svelte_preprocessors = { 'typescript' }
+vim.opt.svelte_preprocessor_tags = { { name = 'typescript', tag = 'script', as = 'typescript' },
+	{ name = 'ts', tag = 'script', as = 'typescript' } }
+vim.opt.svelte_preprocessors = { 'ts' }
