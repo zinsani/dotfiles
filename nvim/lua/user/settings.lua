@@ -33,3 +33,4 @@ vim.opt.wildignore:append({ "*/.sass-cache/*" })
 vim.opt.wildignore:append({ "*.swp", "*~", "._*" })
 vim.opt.undodir = vim.fn.stdpath('config') .. "/undodir"
 vim.opt.undofile = true
+vim.g.ser_emmet_expandabbr_key = '<C-y>'

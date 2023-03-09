@@ -29,7 +29,7 @@ require("null-ls").setup({
 	},
 	on_attach = function(client, bufnr)
 		if client.name == "tsserver" or client.name == "rust_analyzer" or client.name == "pyright" then
-			client.resolved_capabilities.document_formatting = false
+			client.server_capabilities.document_formatting = false
 		end
 
 		if client.supports_method("textDocument/formatting") then

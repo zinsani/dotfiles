@@ -26,18 +26,42 @@ return require('packer').startup(function(use)
 
 	use 'nvim-lua/plenary.nvim'
 	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
-	use 'L3MON4D3/LuaSnip' -- Snippets plugin
-	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-	use 'hrsh7th/cmp-buffer' -- LSP source for buffer
-	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+	use 'L3MON4D3/LuaSnip'        -- Snippets plugin
 	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-	use 'MunifTanjim/prettier.nvim'
 	use { 'jose-elias-alvarez/null-ls.nvim', requires = { { 'nvim-lua/plenary.nvim' } } }
+	use 'MunifTanjim/prettier.nvim'
+	-- use { 'numToStr/prettierrc.nvim',
+	-- 	config = function()
+	-- 		require("prettierrc").setup {}
+	-- 	end
+	-- }
 	use {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
 	}
+	use 'mhartington/formatter.nvim'
+	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+	use 'hrsh7th/cmp-buffer'  -- LSP source for buffer
+	use 'hrsh7th/cmp-path'    -- LSP source for path
+	use 'hrsh7th/cmp-cmdline' -- LSP source for cmdline
+	use 'hrsh7th/nvim-cmp'    -- Autocompletion plugin
+	use {
+		"mattn/emmet-vim",
+		config = function ()
+			vim.g.user_emmet_leader_key = '<C-y>'
+
+			vim.g.user_emmet_settings = {
+				indent_blockelement = 1,
+			}
+		end
+	}
+	-- use { 'sbdchd/neoformat',
+	-- 	config = function()
+	-- 		require('neoformat').setup()
+	-- 	end
+	-- }
+	use 'simrat39/inlay-hints.nvim'
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
 	use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', requires = { { 'nvim-lua/plenary.nvim' } } }
@@ -59,7 +83,17 @@ return require('packer').startup(function(use)
 	use { 'evanleck/vim-svelte', branch = 'main' }
 	use 'tpope/vim-fugitive'
 	use 'windwp/nvim-autopairs'
-
+	use {
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup {
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			}
+		end
+	}
 	if packer_bootstrap then
 		require('packer').sync()
 	end

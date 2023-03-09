@@ -3,18 +3,30 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local lspconfig = require('lspconfig')
+-- local ih = require('inlay-hints')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { "sumneko_lua", "rust_analyzer", "tsserver", "svelte", "omnisharp", "clangd", "cssls",
-	"marksman", "powershell_es", "sqlls", "vuels", "yamlls" }
+local servers = { "lua_ls", "rust_analyzer", "tsserver", "svelte", "omnisharp", "clangd", "cssls",
+	"marksman", "sqlls", "yamlls", "volar", "emmet_ls" }
 local lsp_flags = {
 	-- This is the default in Nvim 0.7+
 	debounce_text_changes = 150,
 }
 
+local runtime_path = {
+	"?.lua",
+	"?/init.lua",
+	"?/?.lua",
+	"~/.luarocks/share/lua/5.3/?.lua",
+	"~/.luarocks/share/lua/5.3/?/init.lua",
+	"/usr/share/5.3/?.lua",
+	"/usr/share/lua/5.3/?/init.lua"
+}
+
 local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
-	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+	-- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+	vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -40,9 +52,11 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = vim.api.nvim_create_augroup("Format", { clear = true }),
 			buffer = bufnr,
-			callback = function() vim.lsp.buf.formatting_seq_sync() end
+			callback = function() vim.lsp.buf.format() end
 		})
 	end
+
+	-- ih.on_attach(client, bufnr)
 end
 
 for _, lsp in ipairs(servers) do
@@ -52,7 +66,40 @@ for _, lsp in ipairs(servers) do
 			capabilities = capabilities,
 			flags = lsp_flags,
 			filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
-			root_dir = function() return vim.loop.cwd() end
+			root_dir = function() return vim.loop.cwd() end,
+			settings = {
+				typescript = {
+					inlayHints = {
+						includeInlayParameterNameHints = 'all',
+						includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayVariableTypeHints = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayEnumMemberValueHints = true,
+					}
+				},
+				javascript = {
+					inlayHints = {
+						includeInlayParameterNameHints = 'all',
+						includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayVariableTypeHints = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayEnumMemberValueHints = true,
+					}
+				}
+			}
+		}
+	elseif (lsp == 'volar') then
+		lspconfig.volar.setup {
+			on_attach = function(client)
+				client.server_capabilities.document_formatting = false
+				client.server_capabilities.document_range_formatting = false
+				client.server_capabilities.documentFormattingProvider = false
+				return on_attach(client)
+			end,
 		}
 	elseif (lsp == 'omnisharp') then
 		local pid = vim.fn.getpid()
@@ -64,7 +111,48 @@ for _, lsp in ipairs(servers) do
 			on_attach = on_attach,
 			flags = lsp_flags
 		}
-	else lspconfig[lsp].setup {
+	elseif (lsp == "lua_ls") then
+		lspconfig.lua_ls.setup {
+			on_attach = on_attach,
+			settings = {
+				Lua = {
+					runtime = {
+						-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+						version = "LuaJIT",
+						-- Setup your lua path
+						path = runtime_path,
+					},
+					diagnostics = {
+						-- Get the language server to recognize the `vim` global
+						globals = { "vim" },
+					},
+					workspace = {
+						-- Make the server aware of Neovim runtime files
+						library = vim.api.nvim_get_runtime_file("", true),
+					},
+					-- Do not send telemetry data containing a randomized but unique identifier
+					telemetry = {
+						enable = false,
+					},
+				},
+			},
+		}
+	elseif (lsp == "emmet_ls") then
+		-- Emmet
+		lspconfig.emmet_ls.setup({
+			capabilities = capabilities,
+			filetypes = {
+				"css",
+				"html",
+				"javascriptreact",
+				"less",
+				"sass",
+				"scss",
+				"typescriptreact",
+			},
+		})
+	else
+		lspconfig[lsp].setup {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			flags = lsp_flags
@@ -72,56 +160,9 @@ for _, lsp in ipairs(servers) do
 	end
 end
 
--- Emmet
-lspconfig.emmet_ls.setup({
-	capabilities = capabilities,
-	filetypes = {
-		"css",
-		"html",
-		"javascriptreact",
-		"less",
-		"sass",
-		"scss",
-		"typescriptreact",
-	},
-})
 
 
-local runtime_path = {
-	"?.lua",
-	"?/init.lua",
-	"?/?.lua",
-	"~/.luarocks/share/lua/5.3/?.lua",
-	"~/.luarocks/share/lua/5.3/?/init.lua",
-	"/usr/share/5.3/?.lua",
-	"/usr/share/lua/5.3/?/init.lua"
-}
 
-lspconfig.sumneko_lua.setup {
-	on_attach = on_attach,
-	settings = {
-		Lua = {
-			runtime = {
-				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-				version = "LuaJIT",
-				-- Setup your lua path
-				path = runtime_path,
-			},
-			diagnostics = {
-				-- Get the language server to recognize the `vim` global
-				globals = { "vim" },
-			},
-			workspace = {
-				-- Make the server aware of Neovim runtime files
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			-- Do not send telemetry data containing a randomized but unique identifier
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
-}
 ---------------------------------
 -- Floating diagnostics message
 ---------------------------------
