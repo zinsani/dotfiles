@@ -94,11 +94,11 @@ for _, lsp in ipairs(servers) do
 		}
 	elseif (lsp == 'volar') then
 		lspconfig.volar.setup {
-			on_attach = function(client)
+			on_attach = function(client, bufnr)
 				client.server_capabilities.document_formatting = false
 				client.server_capabilities.document_range_formatting = false
 				client.server_capabilities.documentFormattingProvider = false
-				return on_attach(client)
+				return on_attach(client, bufnr)
 			end,
 		}
 	elseif (lsp == 'omnisharp') then
