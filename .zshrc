@@ -85,7 +85,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git bundler macos rake ruby)
+plugins=(git bundler macos rake ruby fzf)
 
 
 # User configuration
@@ -146,7 +146,12 @@ fi
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+export NODE_PATH=`which node`
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 source $ZSH/oh-my-zsh.sh
-. /opt/homebrew/etc/profile.d/z.sh
+
+. ~/dotfiles/zoxide.sh
+
+export HOMEBREW_GITHUB_API_TOKEN=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
+eval "$(jenv init -)"
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
