@@ -18,7 +18,7 @@
 	cmd = /usr/local/bin/diffmerge \"$LOCAL\" \"$REMOTE\"
 [merge]
   tool = unityyamlmerge
-	ff = no
+	ff = only
 
 [mergetool "unityyamlmerge"]
   trustExitCode = false
@@ -63,7 +63,7 @@
 	changed = green
 	untracked = cyan
 [pull]
-	rebase = false
+	rebase = true
 	ff = only
 [init]
 	defaultBranch = main
