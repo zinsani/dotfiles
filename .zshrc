@@ -95,6 +95,7 @@ plugins=(git bundler macos rake ruby fzf)
 # neovim
 export PATH="/usr/local/opt/luajit-openresty/bin:$PATH"
 export PATH="/opt/homebrew/Cellar/git/2.37.3/bin/:$PATH"
+export PATH="~/.bun/bin/:$PATH"
 
 # .NET Core
 export PATH="$PATH:$HOME/.dotnet/tools"
@@ -156,3 +157,10 @@ export HOMEBREW_GITHUB_API_TOKEN=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
 eval "$(jenv init -)"
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
+
+# bun completions
+[ -s "/Users/jsp/.bun/_bun" ] && source "/Users/jsp/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
