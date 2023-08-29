@@ -1,5 +1,4 @@
 source $HOME/.bashrc
-source $HOME/.profile
 
 USER="$(whoami)"
 # Set name of the theme to load.
