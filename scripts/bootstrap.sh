@@ -33,4 +33,13 @@ ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global
 [ -d .config ] || mkdir ~/.config
-ln -s ~/dotfiles/lazyvim/nvim ~/.config/nvim
+# required
+mv ~/.config/nvim{,.bak}
+
+# optional but recommended
+mv ~/.local/share/nvim{,.bak}
+mv ~/.local/state/nvim{,.bak}
+mv ~/.cache/nvim{,.bak}
+# git clone https://github.com/LazyVim/starter ~/dotfiles/lazyvim
+
+ln -s ~/dotfiles/lazyvim/nvim ~/.config/lazyvim
