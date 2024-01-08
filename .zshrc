@@ -164,5 +164,8 @@ export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+alias python=python3
+alias pip=pip3
+
 # opam configuration
 [[ ! -r /Users/jsp/.opam/opam-init/init.zsh ]] || source /Users/jsp/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
