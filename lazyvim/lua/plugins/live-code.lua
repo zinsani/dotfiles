@@ -1,6 +1,6 @@
 return {
   "jxm35/livecode.nvim",
-  setup = {
-    username = "zinsani",
-  },
+  config = function()
+    require("livecode").setup({ username = "zinsani" })
+  end,
 }
