@@ -43,3 +43,6 @@ mv ~/.cache/nvim{,.bak}
 # git clone https://github.com/LazyVim/starter ~/dotfiles/lazyvim
 
 ln -s ~/dotfiles/lazyvim ~/.config/nvim
+
+# Install brew bundle
+brew bundle install --file="~/dotfiles/Brewfile"
