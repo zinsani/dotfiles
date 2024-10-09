@@ -11,10 +11,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 [ "$(command -v brew)" ] || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # set path
-(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
+(
+	echo
+	echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+) >>~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# backup prev dotfiles 
+# backup prev dotfiles
 [ -d backup_dotfiles ] || mkdir backup_dotfiles
 [ -e ~/.vimrc ] && mv -f ~/.vimrc ~/backup_dotfiles/.vimrc
 [ -e ~/.zshrc ] && mv -f ~/.zshrc ~/backup_dotfiles/.zshrc
@@ -60,9 +63,12 @@ mv ~/.cache/nvim{,.bak}
 # install lazyvim
 git clone https://github.com/LazyVim/starter ~/dotfiles/lazyvim
 
-# remove .git folder 
+# remove .git folder
 rm -rf ~/.config/nvim/.git
 ln -s ~/dotfiles/lazyvim ~/.config/nvim
 
 # Install brew bundle
 brew bundle install --file="~/dotfiles/Brewfile"
+
+# Install tmux/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
