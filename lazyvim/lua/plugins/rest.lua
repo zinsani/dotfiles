@@ -1,7 +1,7 @@
 return {
   {
     "diepm/vim-rest-console",
-    enabled = true,
+    enabled = false,
     cmd = { "VrcQuery" },
     ft = { "http", "rest" },
     keys = {
@@ -23,8 +23,7 @@ return {
     enabled = false,
     dependencies = { { "nvim-lua/plenary.nvim" } },
     keys = {
-      { "<leader>hh", "<Plug>RestNvim", desc = "Run Rest Request under cursor" },
-      { "<leader>hp", "<Plug>RestNvimPreview", desc = "Preview the request cURL command" },
+      { "<leader>hh", "<Plug>Rest run", desc = "Run Rest Request under cursor" },
     },
     config = function()
       require("rest-nvim").setup({

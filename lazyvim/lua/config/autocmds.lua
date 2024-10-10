@@ -3,7 +3,7 @@
 -- Add any additional autocmds here
 --
 vim.cmd(
-  [[ autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} }) ]]
+  [[ autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }, { name = 'buffer' } }) ]]
 )
 -- local format_is_enabled = false
 --
