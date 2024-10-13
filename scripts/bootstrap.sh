@@ -26,13 +26,14 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 [ -e ~/.gitconfig ] && mv -f ~/.gitconfig ~/backup_dotfiles/.gitconfig
 [ -e ~/.gitignore_global ] && mv -f ~/.gitignore_global ~/backup_dotfiles/.gitignore_global
 [ -d backup_dotfiles/nvim ] || mkdir backup_dotfiles/nvim
-[ -d ~/.config/nvim ] && mv -f ~/.config/nvim ~/backup_dotfiles/nvim
+[ -d ~/.config/nvim ] && mv -f ~/.config/nvim ~/backup_dotfiles
 
-# install packages via homebrew
-[ "$(command -v git)"] || brew install git
-[ "$(command -v nvm)"] || brew install nvm
-[ "$(command -v neovim)"] || brew install neovim
-[ "$(command -v fzf)"] || brew install fzf
+# Install brew bundle
+brew bundle install --file="~/dotfiles/Brewfile"
+# [ "$(command -v git)"] || brew install git
+# [ "$(command -v nvm)"] || brew install nvm
+# [ "$(command -v neovim)"] || brew install neovim
+# [ "$(command -v fzf)"] || brew install fzf
 
 ## lazyvim
 # required
@@ -66,9 +67,6 @@ git clone https://github.com/LazyVim/starter ~/dotfiles/lazyvim
 # remove .git folder
 rm -rf ~/.config/nvim/.git
 ln -s ~/dotfiles/lazyvim ~/.config/nvim
-
-# Install brew bundle
-brew bundle install --file="~/dotfiles/Brewfile"
 
 # Install tmux/tpm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
