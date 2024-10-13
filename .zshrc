@@ -84,7 +84,10 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git bundler macos rake ruby fzf)
+# plugins=(git bundler macos rake ruby fzf)
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
 
 
 # User configuration
@@ -93,12 +96,25 @@ plugins=(git bundler macos rake ruby fzf)
 
 # neovim
 export PATH="/usr/local/opt/luajit-openresty/bin:$PATH"
-export PATH="/opt/homebrew/Cellar/git/2.37.3/bin/:$PATH"
+# export PATH="/opt/homebrew/Cellar/git/2.37.3/bin/:$PATH"
 export PATH="~/.bun/bin/:$PATH"
 
 # .NET Core
 export PATH="$PATH:$HOME/.dotnet/tools"
 
+export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
+export PATH="/usr/local/mysql/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:$PATH"
+export PATH="./node_modules/.bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -106,7 +122,7 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
@@ -118,13 +134,8 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 # For a full list of active aliases, run `alias`.
 
 # Example aliases
-alias oldvim="vim"
-alias vim="nvim"
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-export EDITOR="nvim"
-export USE_EDITOR=$EDITOR
-export VISUAL=$EDITOR
 
 # alias remove_wip_from_closed_issues="glab issue list -c | awk '{print \$1}'"
 alias gli="glab issue"
@@ -148,7 +159,6 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export NODE_PATH=`which node`
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-source $ZSH/oh-my-zsh.sh
 
 . ~/dotfiles/zoxide.sh
 
@@ -158,7 +168,7 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
 
 # bun completions
-[ -s "/Users/jsp/.bun/_bun" ] && source "/Users/jsp/.bun/_bun"
+[ -s $HOME/.bun/_bun ] && source $HOME/.bun/_bun
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -168,7 +178,9 @@ alias python=python3
 alias pip=pip3
 
 # lazygit setup
-set -gx LG_CONFIG_FILE "~/.config/lazygit/config.yml"
+# set -gx LG_CONFIG_FILE "~/.config/lazygit/config.yml"
 
 # opam configuration
-[[ ! -r /Users/jsp/.opam/opam-init/init.zsh ]] || source /Users/jsp/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+# [[ ! -r $HOME/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+
