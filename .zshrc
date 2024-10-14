@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 source $HOME/.bashrc
 
 USER="$(whoami)"
@@ -122,6 +129,7 @@ alias oldvim="vim"
 alias vim="nvim"
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
+alias sz="source ~/.zshrc"
 export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
@@ -167,8 +175,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 alias python=python3
 alias pip=pip3
 
-# lazygit setup
-set -gx LG_CONFIG_FILE "~/.config/lazygit/config.yml"
-
 # opam configuration
 [[ ! -r /Users/jsp/.opam/opam-init/init.zsh ]] || source /Users/jsp/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
