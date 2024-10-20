@@ -12,8 +12,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # set path
 (
-	echo
-	echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+  echo
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
 ) >>~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -65,8 +65,8 @@ mv ~/.cache/nvim{,.bak}
 git clone https://github.com/LazyVim/starter ~/dotfiles/lazyvim
 
 # remove .git folder
-rm -rf ~/.config/nvim/.git
 ln -s ~/dotfiles/lazyvim ~/.config/nvim
+rm -rf ~/.config/nvim/.git
 
 # Install tmux/tpm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
