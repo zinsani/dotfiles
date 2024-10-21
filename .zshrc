@@ -148,6 +148,17 @@ export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
+
+alias tmux='tmux -2'
+alias tnew='tmux new -s'
+alias ta='tmux a -t'
+alias tls='tmux ls'
+alias tk='tmux kill-window'
+
+alias ez='vi ~/.zshrc'
+alias ev='vi ~/.vimrc'
+alias et='vi ~/.tmux.conf'
+
 # alias remove_wip_from_closed_issues="glab issue list -c | awk '{print \$1}'"
 alias gli="glab issue"
 alias glils="gli list" 

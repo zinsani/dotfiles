@@ -7,4 +7,3 @@ nvim/undodir
 
 *.lock.json
 lazy-lock.json
-lazygit
