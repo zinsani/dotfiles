@@ -141,12 +141,13 @@ eval "$(jenv init -)"
 # For a full list of active aliases, run `alias`.
 
 # Example aliases
-alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias sz="source ~/.zshrc"
 export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
+
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+alias sz="source ~/.zshrc"
 
 
 alias tmux='tmux -2'
@@ -155,9 +156,9 @@ alias ta='tmux a -t'
 alias tls='tmux ls'
 alias tk='tmux kill-window'
 
-alias ez='vi ~/.zshrc'
-alias ev='vi ~/.vimrc'
-alias et='vi ~/.tmux.conf'
+alias ez='vim ~/.zshrc'
+alias ev='vim ~/.vimrc'
+alias et='vim ~/.tmux.conf'
 
 # alias remove_wip_from_closed_issues="glab issue list -c | awk '{print \$1}'"
 alias gli="glab issue"
