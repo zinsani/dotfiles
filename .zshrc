@@ -206,3 +206,12 @@ alias pip=pip3
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+
+# For compilers to find libpq you may need to set:
+export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
+
+# For pkg-config to find libpq you may need to set:
+export PKG_CONFIG_PATH="/opt/homebrew/opt/libpq/lib/pkgconfig"
+
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
