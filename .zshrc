@@ -206,8 +206,6 @@ alias pip=pip3
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-source $HOME/.oh-my-zsh/custom/themes/powerlevel10k
 
 # For compilers to find libpq you may need to set:
 export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
@@ -221,8 +219,8 @@ export PATH="/opt/homebrew/opt/libpq/bin:/opt/homebrew/opt/postgresql@15/bin:$PA
 export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
 export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
-export CAROOT=$HOME/workspace/certificates
-export NODE_EXTRA_CA_CERTS=$HOME/workspace/certificates/rootCA.pem
+# export CAROOT=$(mkcert -CAROOT)
+export NODE_EXTRA_CA_CERTS=$(mkcert -CAROOT)/rootCA.pem
 
 # Load secret keys like NPM_AUTH_KEY or CLAUSE_API_KEY
 if [ -f ~/.zsh_secrets ]; then
