@@ -14,11 +14,9 @@
 
 [diff]
 	tool = diffmerge
+
 [difftool "diffmerge"]
 	cmd = /usr/local/bin/diffmerge \"$LOCAL\" \"$REMOTE\"
-[merge]
-  tool = unityyamlmerge
-	ff = only
 
 [mergetool "unityyamlmerge"]
   trustExitCode = false
