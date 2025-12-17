@@ -4,7 +4,7 @@
   required = true
 	process = git-lfs filter-process
 [user]
-  name = Jason Park
+  name = Jason
   email = jason.park@soomgo.com
 [core]
   excludesfile = $PROFILE/.gitignore_global
