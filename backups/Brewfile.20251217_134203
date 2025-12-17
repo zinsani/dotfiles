@@ -1,115 +1,53 @@
-tap "nikitabobko/tap"
+tap "homebrew/bundle"
 tap "pivotal/tap"
 tap "qmk/qmk"
 tap "spring-io/tap"
-# TIFF library and utilities
 brew "libtiff"
-# New file format for still image compression
 brew "jpeg-xl"
-# Dependency manager for Cocoa projects
-brew "cocoapods"
-# Container runtimes on MacOS (and Linux) with minimal setup
-brew "colima", restart_service: :changed
-# Apjanke's fork of the classic cowsay project
-brew "cowsay"
-# Pack, ship and run any application as a lightweight container
-brew "docker"
-# Docker CLI plugin for extended build capabilities with BuildKit
-brew "docker-buildx"
-# Isolated development environments using Docker
-brew "docker-compose"
-# Platform keystore credential helper for Docker
-brew "docker-credential-helper"
-# Composable build system for OCaml
-brew "dune"
-# Simple, fast and user-friendly alternative to find
-brew "fd"
-# OCR (Optical Character Recognition) engine
-brew "tesseract"
-# Play, record, convert, and stream audio and video
-brew "ffmpeg"
-# Command-line fuzzy finder written in Go
-brew "fzf"
-# GitHub command-line tool
-brew "gh"
-# Distributed revision control system
-brew "git"
-# GNU implementation of the famous stream editor
-brew "gnu-sed"
-# Development kit for the Java programming language
-brew "openjdk"
-# Open-source build automation tool based on the Groovy and Kotlin DSL
-brew "gradle"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node"
-# Simple zero-configuration command-line HTTP server
-brew "http-server"
-# Tools and libraries to manipulate images in many formats
-brew "imagemagick"
-# Manage your Java environment
-brew "jenv"
-# Lightweight and flexible command-line JSON processor
-brew "jq"
-# Command-line JSON pretty-printer
-brew "jsonpp"
-# Simple terminal UI for git commands
-brew "lazygit"
-# Asynchronous event library
-brew "libev"
-# Postgres C API library
-brew "libpq"
-# Rainbows and unicorns in your console!
-brew "lolcat"
-# Drop-in replacement for MySQL
-brew "mariadb"
-# Simple tool to make locally trusted development certificates
-brew "mkcert"
-# Ambitious Vim-fork focused on extensibility and agility
-brew "neovim"
-# Manage multiple Node.js versions
-brew "nvm"
-# OCaml package manager
-brew "opam"
-# Development kit for the Java programming language
-brew "openjdk@11"
-# Development kit for the Java programming language
-brew "openjdk@17"
-# Swiss-army knife of markup format conversion
-brew "pandoc"
-# Package compiler and linker metadata toolkit
-brew "pkgconf"
-# Command-line interface for SQLite
 brew "sqlite"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.11"
-# Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
-# Search tool like grep and The Silver Searcher
+brew "cocoapods"
+brew "cowsay"
+brew "dune"
+brew "tesseract"
+brew "ffmpeg"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "gnu-sed"
+brew "openjdk"
+brew "gradle"
+brew "node"
+brew "http-server"
+brew "jenv"
+brew "jq"
+brew "jsonpp"
+brew "lazygit"
+brew "libev"
+brew "libpq"
+brew "lolcat"
+brew "mariadb"
+brew "mkcert"
+brew "neovim"
+brew "nvm"
+brew "opam"
+brew "openjdk@11"
+brew "openjdk@17"
+brew "pkgconf"
+brew "python@3.11"
 brew "ripgrep"
-# Terminal multiplexer
 brew "tmux"
-# Display directories as trees (with optional color/HTML output)
 brew "tree"
-# Watch files and take action when they change
 brew "watchman"
-# Shell extension to navigate your filesystem faster
 brew "zoxide"
 brew "spring-io/tap/spring-boot"
-# AeroSpace is an i3-like tiling window manager for macOS
-cask "aerospace"
-# Tools for building Android applications
 cask "android-studio"
-# Utility that prevents the system from going to sleep
 cask "caffeine"
-# Databases and SQL IDE
 cask "datagrip"
-# Universal database tool and SQL client
 cask "dbeaver-community"
-# Terminal emulator as alternative to Apple's Terminal app
+cask "docker"
 cask "iterm2"
-# Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
-# Open-source code editor
 cask "visual-studio-code"
 vscode "adrianwilczynski.blazor-snippet-pack"
 vscode "alexisvt.flutter-snippets"
@@ -126,6 +64,7 @@ vscode "dbaeumer.vscode-eslint"
 vscode "dotjoshjohnson.xml"
 vscode "dsznajder.es7-react-js-snippets"
 vscode "eamodio.gitlens"
+vscode "eg2.vscode-npm-script"
 vscode "elmtooling.elm-ls-vscode"
 vscode "emilast.logfilehighlighter"
 vscode "esbenp.prettier-vscode"
@@ -144,13 +83,13 @@ vscode "miramac.vscode-exec-node"
 vscode "mkloubert.vscode-http-client"
 vscode "ms-azuretools.vscode-azureappservice"
 vscode "ms-azuretools.vscode-azureresourcegroups"
-vscode "ms-azuretools.vscode-containers"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-ceintl.vscode-language-pack-ko"
 vscode "ms-dotnettools.blazorwasm-companion"
 vscode "ms-dotnettools.csharp"
 vscode "ms-dotnettools.vscode-dotnet-runtime"
 vscode "ms-vscode-remote.remote-containers"
+vscode "ms-vscode.azure-account"
 vscode "ms-vscode.cmake-tools"
 vscode "ms-vscode.cpptools"
 vscode "ms-vscode.cpptools-extension-pack"
@@ -174,5 +113,6 @@ vscode "tobiah.unity-tools"
 vscode "twxs.cmake"
 vscode "vscodevim.vim"
 vscode "vue.volar"
+vscode "vue.vscode-typescript-vue-plugin"
 vscode "xaver.clang-format"
 vscode "yzane.markdown-pdf"
