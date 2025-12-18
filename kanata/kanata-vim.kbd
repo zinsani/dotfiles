@@ -14,9 +14,10 @@
 ;;    - hjkl = Arrow keys
 ;;    - w/b = Word forward/backward (Option+Arrow)
 ;;    - 0/$ = Home/End (Cmd+Arrow)
-;;    - u/d = Page Up/Down
+;;    - y/u/i/o = Home/PgDn/PgUp/End
+;;    - d = Page Down
 ;;    - g/G = Top/Bottom (Cmd+Up/Down)
-;;    - y = Copy, p = Paste, x = Delete, c = Cut
+;;    - p = Paste, x = Delete, c = Cut
 ;; 4. SYM Layer (hold Right Cmd):
 ;;    - q-p: ! @ # $ % ^ & * ( )
 ;;    - a-;: 1 2 3 4 5 6 7 8 9 0
@@ -87,8 +88,13 @@
   vim0 M-left
   vim$ M-right
 
-  ;; Page movement
-  vimu pgup
+  ;; Page movement (y/u/i/o row)
+  vimy home
+  vimu pgdn
+  vimi pgup
+  vimo end
+
+  ;; Page down on d key
   vimd pgdn
 
   ;; Document top/bottom (Cmd + Up/Down)
@@ -96,7 +102,6 @@
   vimG  M-down
 
   ;; Editing shortcuts
-  vimy M-c      ;; yank (copy)
   vimp M-v      ;; paste
   vimx del      ;; delete forward
   vimc M-x      ;; cut
@@ -172,7 +177,7 @@
 (deflayer vim
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    @vimw _   _    _    @vimy @vimu _   _    @vimp _   _    _
+  _    _    @vimw _   _    _    @vimy @vimu @vimi @vimo @vimp _   _    _
   _    _    _    @vimd _  @vimgg @vimh @vimj @vimk @viml @vim$ _   _
   @vimG _   @vimc @vimx _ @vimb  _    _    _    _    _    _
   _    _    _    _              _              _    _
