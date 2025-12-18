@@ -39,8 +39,8 @@
   esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  fn   lctl lalt lmet           spc            rmet ralt
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+  fn   lctl lalt lmet           spc            rmet ralt left down rght
 )
 
 ;; ============================================
@@ -167,8 +167,8 @@
   (chord toggle esc) 1 2 3 4 5 6 7 8 9 0 - = bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @escctrl @hm-a @hm-s @hm-d @hm-f g h @hm-j @hm-k @hm-l @hm-; ' ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  (chord toggle fn) lctl grv @vimldr spc @symldr =
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+  (chord toggle fn) lctl grv @vimldr spc @symldr = left down rght
 )
 
 ;; ============================================
@@ -179,8 +179,8 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    @vimw _   _    _    @vimy @vimu @vimi @vimo @vimp _   _    _
   _    _    _    _ _  @vimgg @vimh @vimj @vimk @viml @vim$ _   _
-  @vimG _   @vimc @vimx _ @vimb  _    _    _    _    _    _
-  _    _    _    _              _              _    _
+  @vimG _   @vimc @vimx _ @vimb  _    _    _    _    _    _    _
+  _    _    _    _              _              _    _    _    _    _
 )
 
 ;; ============================================
@@ -193,8 +193,8 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  _    _    _
   _    1    2    3    4    5    6    7    8    9    0    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _              _              _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _              _              _    _    _    _    _
 )
 
 ;; ============================================
@@ -205,6 +205,6 @@
   (chord toggle-back esc) XX XX XX XX XX XX XX XX XX XX XX XX XX
   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  (chord toggle-back fn) XX XX XX XX XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  (chord toggle-back fn) XX XX XX XX XX XX XX XX XX
 )
