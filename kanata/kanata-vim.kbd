@@ -1,0 +1,205 @@
+;; ============================================
+;; Kanata Vim-style + ZMK Positional HRM
+;; for macOS developers (Split Keyboard)
+;; ============================================
+;;
+;; Features:
+;; 1. Caps Lock: tap=Esc, hold=Ctrl
+;; 2. Thumb keys:
+;;    - Left Cmd: tap=Cmd, hold=Vim layer
+;;    - Right Cmd: tap=-, hold=SYM layer
+;;    - Left Alt: ` (backtick)
+;;    - Right Alt: =
+;; 3. Vim Navigation Layer (hold Left Cmd):
+;;    - hjkl = Arrow keys
+;;    - w/b = Word forward/backward (Option+Arrow)
+;;    - 0/$ = Home/End (Cmd+Arrow)
+;;    - u/d = Page Up/Down
+;;    - g/G = Top/Bottom (Cmd+Up/Down)
+;;    - y = Copy, p = Paste, x = Delete, c = Cut
+;; 4. SYM Layer (hold Right Cmd):
+;;    - q-p: ! @ # $ % ^ & * ( )
+;;    - a-;: 1 2 3 4 5 6 7 8 9 0
+;; 5. Home Row Mods (ZMK-style positional hold-tap):
+;;    - Left:  a=Gui, s=Alt, d=Shift, f=Ctrl
+;;    - Right: j=Ctrl, k=Shift, l=Alt, ;=Gui
+;;    - Only triggers hold when opposite hand keys are pressed
+;; 6. fn+esc = Toggle internal keyboard on/off
+
+(defcfg
+  process-unmapped-keys yes
+  macos-dev-names-include (
+    "Apple Internal Keyboard / Trackpad"
+  )
+)
+
+(defsrc
+  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lalt lmet           spc            rmet ralt
+)
+
+;; ============================================
+;; Timing Configuration (ZMK-compatible)
+;; ============================================
+(defvar
+  tap-time 200        ;; tapping-term-ms
+  hold-time 150       ;; hold trigger time (faster response)
+  quick-tap 175       ;; quick-tap-ms
+)
+
+(defalias
+  ;; ==========================================
+  ;; Toggle keyboard on/off
+  ;; ==========================================
+  toggle-off (layer-switch disabled)
+  toggle-on  (layer-switch normal)
+
+  ;; ==========================================
+  ;; Caps Lock: tap=Esc, hold=Ctrl
+  ;; ==========================================
+  escctrl (tap-hold $tap-time $hold-time esc lctl)
+
+  ;; ==========================================
+  ;; Cmd keys (thumb position)
+  ;; Left Cmd: tap=Cmd, hold=Vim layer
+  ;; Right Cmd: tap=-, hold=SYM layer
+  ;; ==========================================
+  vimldr (tap-hold $tap-time $hold-time lmet (layer-while-held vim))
+  symldr (tap-hold $tap-time $hold-time - (layer-while-held sym))
+
+  ;; ==========================================
+  ;; Vim navigation keys
+  ;; ==========================================
+  vimh left
+  vimj down
+  vimk up
+  viml right
+
+  ;; Word movement (Option + Arrow on macOS)
+  vimw A-right
+  vimb A-left
+
+  ;; Line start/end (Cmd + Arrow on macOS)
+  vim0 M-left
+  vim$ M-right
+
+  ;; Page movement
+  vimu pgup
+  vimd pgdn
+
+  ;; Document top/bottom (Cmd + Up/Down)
+  vimgg M-up
+  vimG  M-down
+
+  ;; Editing shortcuts
+  vimy M-c      ;; yank (copy)
+  vimp M-v      ;; paste
+  vimx del      ;; delete forward
+  vimc M-x      ;; cut
+
+  ;; ==========================================
+  ;; Home Row Mods - Bilateral tap-hold
+  ;; Left hand: Gui, Alt, Shift, Ctrl
+  ;; Same-hand keys trigger tap, opposite-hand keys trigger hold
+  ;; ==========================================
+  hm-a (tap-hold-release-keys $tap-time $hold-time
+        a lmet
+        (q w e r t a s d f g z x c v b))
+
+  hm-s (tap-hold-release-keys $tap-time $hold-time
+        s lalt
+        (q w e r t a s d f g z x c v b))
+
+  hm-d (tap-hold-release-keys $tap-time $hold-time
+        d lsft
+        (q w e r t a s d f g z x c v b))
+
+  hm-f (tap-hold-release-keys $tap-time $hold-time
+        f lctl
+        (q w e r t a s d f g z x c v b))
+
+  ;; ==========================================
+  ;; Right hand: Ctrl, Shift, Alt, Gui (mirror)
+  ;; ==========================================
+  hm-j (tap-hold-release-keys $tap-time $hold-time
+        j rctl
+        (y u i o p h j k l ; n m , . /))
+
+  hm-k (tap-hold-release-keys $tap-time $hold-time
+        k rsft
+        (y u i o p h j k l ; n m , . /))
+
+  hm-l (tap-hold-release-keys $tap-time $hold-time
+        l ralt
+        (y u i o p h j k l ; n m , . /))
+
+  hm-; (tap-hold-release-keys $tap-time $hold-time
+        ; rmet
+        (y u i o p h j k l ; n m , . /))
+)
+
+(defchords toggle 200
+  (fn)     fn
+  (esc)    esc
+  (fn esc) @toggle-off
+)
+
+(defchords toggle-back 200
+  (fn)     fn
+  (esc)    esc
+  (fn esc) @toggle-on
+)
+
+;; ============================================
+;; Normal layer with ZMK-style HRM
+;; ============================================
+(deflayer normal
+  brdn brup _    _    _    _    prev pp   next mute vold volu
+  (chord toggle esc) 1 2 3 4 5 6 7 8 9 0 - = bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @escctrl @hm-a @hm-s @hm-d @hm-f g h @hm-j @hm-k @hm-l @hm-; ' ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  (chord toggle fn) lctl grv @vimldr spc @symldr =
+)
+
+;; ============================================
+;; Vim navigation layer (activated by holding Left Cmd)
+;; ============================================
+(deflayer vim
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    @vimw _   _    _    @vimy @vimu _   _    @vimp _   _    _
+  _    _    _    @vimd _  @vimgg @vimh @vimj @vimk @viml @vim$ _   _
+  @vimG _   @vimc @vimx _ @vimb  _    _    _    _    _    _
+  _    _    _    _              _              _    _
+)
+
+;; ============================================
+;; SYM layer (activated by holding Right Cmd)
+;; q-p: ! @ # $ % ^ & * ( )
+;; a-;: 1 2 3 4 5 6 7 8 9 0
+;; ============================================
+(deflayer sym
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  _    _    _
+  _    1    2    3    4    5    6    7    8    9    0    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _              _              _    _
+)
+
+;; ============================================
+;; Disabled layer (fn+esc to re-enable)
+;; ============================================
+(deflayer disabled
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  (chord toggle-back esc) XX XX XX XX XX XX XX XX XX XX XX XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  (chord toggle-back fn) XX XX XX XX XX XX
+)

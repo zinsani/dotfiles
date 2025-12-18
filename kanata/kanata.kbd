@@ -1,0 +1,53 @@
+;; Kanata configuration for macOS
+;; fn+esc to toggle internal keyboard on/off
+
+(defcfg
+  process-unmapped-keys yes
+  macos-dev-names-include (
+    "Apple Internal Keyboard / Trackpad"
+  )
+)
+
+(defsrc
+  esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lalt lmet           spc            rmet ralt
+)
+
+(defalias
+  ;; fn+esc to toggle keyboard
+  toggle-off (layer-switch disabled)
+  toggle-on  (layer-switch normal)
+  ;; caps lock: tap=esc, hold=ctrl
+  escctrl (tap-hold 200 200 esc lctl)
+)
+
+(defchords toggle 200
+  (fn)     fn
+  (esc)    esc
+  (fn esc) @toggle-off
+)
+
+(defchords toggle-back 200
+  (fn)     fn
+  (esc)    esc
+  (fn esc) @toggle-on
+)
+
+(deflayer normal
+  (chord toggle esc) 1 2 3 4 5 6 7 8 9 0 - = bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @escctrl a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  (chord toggle fn) lctl lalt lmet spc rmet ralt
+)
+
+(deflayer disabled
+  (chord toggle-back esc) XX XX XX XX XX XX XX XX XX XX XX XX XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  (chord toggle-back fn) XX XX XX XX XX XX
+)
