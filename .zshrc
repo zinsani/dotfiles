@@ -251,3 +251,12 @@ add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
 alias claude="/Users/jsp/.claude/local/claude"
+
+# Kanata keyboard remapper
+kanata-start() {
+  sudo /opt/homebrew/bin/kanata --cfg ~/dotfiles/kanata/kanata-vim.kbd > /dev/null 2>&1 &
+  echo "Kanata started in background (PID: $!)"
+}
+kanata-stop() {
+  sudo pkill kanata && echo "Kanata stopped"
+}
