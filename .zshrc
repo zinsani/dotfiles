@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+export MANPATH="$HOME/.local/share/man:$MANPATH"
+
 source $HOME/.bashrc
 
 USER="$(whoami)"
@@ -220,7 +223,8 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
 export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
 # export CAROOT=$(mkcert -CAROOT)
-export NODE_EXTRA_CA_CERTS=$(mkcert -CAROOT)/rootCA.pem
+# export NODE_EXTRA_CA_CERTS=$(mkcert -CAROOT)/rootCA.pem
+export NODE_EXTRA_CA_CERTS="$HOME/zscaler-root-ca.pem"
 
 # Load secret keys like NPM_AUTH_KEY or CLAUSE_API_KEY
 if [ -f ~/.zsh_secrets ]; then
