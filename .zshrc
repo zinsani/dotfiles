@@ -254,7 +254,8 @@ alias claude="/Users/jsp/.claude/local/claude"
 
 # Kanata keyboard remapper
 kanata-start() {
-  sudo /opt/homebrew/bin/kanata --cfg ~/dotfiles/kanata/kanata-vim.kbd > /dev/null 2>&1 &
+  sudo pkill kanata > /dev/null 2>&1
+  env -u TERMINFO sudo /opt/homebrew/bin/kanata --cfg ~/dotfiles/kanata/kanata-vim.kbd > /dev/null 2>&1 &
   echo "Kanata started in background (PID: $!)"
 }
 kanata-stop() {
