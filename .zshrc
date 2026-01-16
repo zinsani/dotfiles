@@ -265,3 +265,6 @@ kanata-start() {
 kanata-stop() {
   sudo pkill kanata && echo "Kanata stopped"
 }
+
+# git-cascade-rebase completion
+[ -f "/Users/jsp/workspace/cascade-rebase/git-cascade-rebase.bash-completion" ] && source "/Users/jsp/workspace/cascade-rebase/git-cascade-rebase.bash-completion"
