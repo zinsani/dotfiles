@@ -147,8 +147,8 @@ export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
-alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
+alias vi="nvim"
+alias vim="nvim"
 alias sz="source ~/.zshrc"
 
 
@@ -159,6 +159,8 @@ alias tls='tmux ls'
 alias tk='tmux kill-window'
 
 alias ez='vim ~/.zshrc'
+alias eom="vim ~/.oh-my-zsh"
+alias eo="vim ~/.config/opencode/"
 alias ev='vim ~/.vimrc'
 alias et='vim ~/.tmux.conf'
 
@@ -258,7 +260,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export HOMEBREW_GITHUB_API_TOKEN=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
 eval "$(jenv init -)"
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
-export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
+# export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
 
 # bun completions
 [ -s $HOME/.bun/_bun ] && source $HOME/.bun/_bun
@@ -321,7 +323,6 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
-alias claude="/Users/jsp/.claude/local/claude"
 
 # Kanata keyboard remapper
 kanata-start() {
