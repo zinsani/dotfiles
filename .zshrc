@@ -261,3 +261,22 @@ kanata-start() {
 kanata-stop() {
   sudo pkill kanata && echo "Kanata stopped"
 }
+
+# git-cascade-rebase completion
+[ -f "/Users/jsp/workspace/cascade-rebase/git-cascade-rebase.bash-completion" ] && source "/Users/jsp/workspace/cascade-rebase/git-cascade-rebase.bash-completion"
+
+# yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+# AWS redrock setting
+# export AWS_BEARER_TOKEN_BEDROCK="전달 드릴 api key" --> from zsh_secrets
+export CLAUDE_CODE_USE_BEDROCK=1 # [필수 설정] Bedrock 통합 활성화
+export AWS_REGION=ap-northeast-2 # Bedrock API의 리전 지정
+export ANTHROPIC_MODEL=global.anthropic.claude-opus-4-6-v1 # 모델은 선택 가능합니다
+

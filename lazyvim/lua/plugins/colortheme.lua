@@ -10,6 +10,6 @@ return {
     "sainnhe/everforest",
   },
   opts = {
-    colorscheme = "catppuccin-macchiato",
+    colorscheme = "catppuccin-frappe",
   },
 }
