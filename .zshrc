@@ -215,6 +215,8 @@ export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/libpq/lib/pkgconfig"
 
 export PATH="/opt/homebrew/opt/libpq/bin:/opt/homebrew/opt/postgresql@15/bin:$PATH"
+# Use Homebrew curl (8.19.0+) instead of system curl for AWS SigV4 support (must be at end)
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
 export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
 export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
