@@ -1,4 +1,4 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Enable Powrlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -276,9 +276,4 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# AWS redrock setting
-# export AWS_BEARER_TOKEN_BEDROCK="전달 드릴 api key" --> from zsh_secrets
-export CLAUDE_CODE_USE_BEDROCK=1 # [필수 설정] Bedrock 통합 활성화
-export AWS_REGION=ap-northeast-2 # Bedrock API의 리전 지정
-export ANTHROPIC_MODEL=global.anthropic.claude-opus-4-6-v1 # 모델은 선택 가능합니다
-
+export XDG_CONFIG_HOME="$HOME/.config"
