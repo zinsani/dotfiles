@@ -11,6 +11,7 @@
 	editor = nvim 
 	autocrlf = input
 	crlf = input
+	pager = delta
 
 [diff]
 	tool = diffmerge
@@ -75,3 +76,10 @@
 	insteadOf = https://github.com/
 [rebase]
 	updateRefs = true
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	dark = true
+[merge]
+	conflictStyle = zdiff3
