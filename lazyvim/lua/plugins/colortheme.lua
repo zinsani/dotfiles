@@ -1,5 +1,10 @@
 return {
-  "LazyVim/LazyVim",
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin-frappe",
+    },
+  },
   {
     "morhetz/gruvbox",
   },
@@ -8,8 +13,5 @@ return {
   },
   {
     "sainnhe/everforest",
-  },
-  opts = {
-    colorscheme = "catppuccin-frappe",
   },
 }
