@@ -84,7 +84,29 @@ return {
     "rcarriga/nvim-dap-ui",
     config = function()
       local dap, dapui = require("dap"), require("dapui")
-      dapui.setup()
+      local sidebar_width = math.floor(vim.o.columns * 0.4)
+      dapui.setup({
+        layouts = {
+          {
+            elements = {
+              { id = "scopes", size = 0.25 },
+              { id = "breakpoints", size = 0.25 },
+              { id = "stacks", size = 0.25 },
+              { id = "watches", size = 0.25 },
+            },
+            position = "left",
+            size = sidebar_width, -- 40% of screen width
+          },
+          {
+            elements = {
+              { id = "repl", size = 0.5 },
+              { id = "console", size = 0.5 },
+            },
+            position = "bottom",
+            size = 10,
+          },
+        },
+      })
 
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({})

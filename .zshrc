@@ -24,7 +24,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # export FZF_DEFAULT_COMMAND="fd . $HOME"
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_ALT_C_COMMAND="fd -t d . $HOME"
-
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -167,6 +168,29 @@ alias glils="gli list"
 alias glilsa="gli list -A" 
 alias glilswip="gli list -l WIP" 
 alias glirmwip="gli list -c -l WIP | awk '/^#/ {print \$1}' | while read num; do glab issue update \${num:1} -u WIP; done"
+alias gbc="git branch-change-scale"
+
+
+# alias for soomgo
+alias sw="soomgo worktree"
+alias swa="soomgo worktree add"
+alias swr="soomgo worktree remove"
+alias sss="soomgo serve status"
+alias ssr="soomgo serve restart"
+alias ss="soomgo switch"
+
+alias lg="lazygit"
+
+# jj (Jujutsu) helpers
+jj-describe() {
+  local ticket=$(jj bookmark list | grep -oE 'MG-[0-9]+' | head -1)
+  if [ -n "$ticket" ]; then
+    jj describe -m "[$ticket] $1"
+  else
+    jj describe -m "$1"
+  fi
+}
+
 
 ###-tns-completion-start-###
 if [ -f $HOME/.tnsrc ]; then 

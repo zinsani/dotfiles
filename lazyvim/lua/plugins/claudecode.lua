@@ -5,7 +5,7 @@ return {
     config = function()
       require("claudecode").setup({
         panel = {
-          width = 0.4, -- 30% of screen width
+          width = 0.4, -- 40% of screen width
         },
       })
     end,

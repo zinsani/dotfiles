@@ -2,6 +2,7 @@ return {
   {
     "zbirenbaum/copilot.lua",
     opts = {
+      copilot_node_command = vim.fn.expand("~/.nvm/versions/node/v22.14.0/bin/node"),
       suggestion = {
         enabled = true,
         auto_trigger = false,
@@ -35,6 +36,10 @@ return {
     "CopilotC-Nvim/CopilotChat.nvim",
     opts = {
       tools = "copilot",
+      window = {
+        layout = "vertical",
+        width = 0.4, -- 40% of screen width
+      },
     },
   },
 }
