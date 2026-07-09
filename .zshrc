@@ -94,7 +94,7 @@ ZSH_THEME=powerlevel10k/powerlevel10k
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git bundler macos rake ruby fzf)
-plugins=(git jj)
+plugins=(git jj codex)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -181,15 +181,60 @@ alias ss="soomgo switch"
 
 alias lg="lazygit"
 
+# Connect Claude Code to a running Neovim instance
+cn() {
+  local lock_dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/ide"
+  local locks=("$lock_dir"/*.lock(N))
+
+  if [[ ${#locks[@]} -eq 0 ]]; then
+    echo "No Neovim instances with claudecode.nvim found."
+    return 1
+  fi
+
+  local entries=()
+  for lock in "${locks[@]}"; do
+    local port=$(basename "$lock" .lock)
+    local pid=$(python3 -c "import json; print(json.load(open('$lock'))['pid'])" 2>/dev/null)
+    local folders=$(python3 -c "import json; print(', '.join(json.load(open('$lock'))['workspaceFolders']))" 2>/dev/null)
+    if kill -0 "$pid" 2>/dev/null; then
+      entries+=("$port|$pid|$folders")
+    fi
+  done
+
+  if [[ ${#entries[@]} -eq 0 ]]; then
+    echo "No live Neovim instances found (stale lock files only)."
+    return 1
+  fi
+
+  local selected
+  if [[ ${#entries[@]} -eq 1 ]]; then
+    selected="${entries[1]}"
+  else
+    selected=$(printf 'PORT|PID|WORKSPACES\n%s\n' "${entries[@]}" | column -t -s'|' | fzf --header-lines=1 | awk '{print $1}')
+    [[ -z "$selected" ]] && return 0
+  fi
+
+  local port="${selected%%|*}"
+  local folders=$(python3 -c "import json; print(json.load(open('$lock_dir/$port.lock'))['workspaceFolders'][0])" 2>/dev/null)
+  echo "Connecting to Neovim (port $port) at $folders"
+  cd "$folders" && CLAUDE_CODE_SSE_PORT="$port" claude "$@"
+}
+
 # jj (Jujutsu) helpers
 jj-describe() {
-  local ticket=$(jj bookmark list | grep -oE 'MG-[0-9]+' | head -1)
+  local ticket=$(jj bookmark list | grep -oE '[A-Z]+-[0-9]+' | head -1)
   if [ -n "$ticket" ]; then
     jj describe -m "[$ticket] $1"
   else
     jj describe -m "$1"
   fi
 }
+
+jjmd() {                                                                                                                                    
+  local current=$(jj log -r '@-' --no-graph -T 'bookmarks.join(",")')                                                                       
+  jj git fetch                                                                                                                              
+  jj new @ 'trunk()' -m "Merge branch 'develop' into ${current}"
+}  
 
 
 ###-tns-completion-start-###
@@ -301,3 +346,7 @@ function y() {
 }
 
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# Colima docker socket
+export DOCKER_HOST="unix:///Users/jsp/.colima/default/docker.sock"
+export NODE_OPTIONS="--max-old-space-size=8192"
