@@ -22,6 +22,8 @@
   toggle-on  (layer-switch normal)
   ;; caps lock: tap=esc, hold=ctrl
   escctrl (tap-hold 200 200 esc lctl)
+  ;; tab: tap=tab, hold=meh (Ctrl+Alt+Cmd)
+  meh (tap-hold 200 200 tab (multi lctl lalt lmet))
 )
 
 (defchords toggle 200
@@ -38,7 +40,7 @@
 
 (deflayer normal
   (chord toggle esc) 1 2 3 4 5 6 7 8 9 0 - = bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @meh  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @escctrl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   (chord toggle fn) lctl lalt lmet spc rmet ralt

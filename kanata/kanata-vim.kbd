@@ -65,6 +65,11 @@
   escctrl (tap-hold $tap-time $hold-time esc lctl)
 
   ;; ==========================================
+  ;; Tab: tap=Tab, hold=Meh (Ctrl+Alt+Cmd)
+  ;; ==========================================
+  meh (tap-hold $tap-time $hold-time tab (multi lctl lalt lmet))
+
+  ;; ==========================================
   ;; Cmd keys (thumb position)
   ;; Left Cmd: tap=Cmd, hold=Vim layer
   ;; Right Cmd: tap=-, hold=SYM layer
@@ -165,7 +170,7 @@
 (deflayer normal
   brdn brup _    _    _    _    prev pp   next mute vold volu
   (chord toggle esc) 1 2 3 4 5 6 7 8 9 0 - = bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @meh  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @escctrl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft @hm-z @hm-x @hm-c @hm-v b    n    @hm-m @hm-comma @hm-dot @hm-slash rsft up
   (chord toggle fn) lctl grv @vimldr spc @symldr = left down rght
