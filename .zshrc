@@ -173,17 +173,6 @@ alias glils="gli list"
 alias glilsa="gli list -A" 
 alias glilswip="gli list -l WIP" 
 alias glirmwip="gli list -c -l WIP | awk '/^#/ {print \$1}' | while read num; do glab issue update \${num:1} -u WIP; done"
-alias gbc="git branch-change-scale"
-
-
-# alias for soomgo
-alias sw="soomgo worktree"
-alias swa="soomgo worktree add"
-alias swr="soomgo worktree remove"
-alias sss="soomgo serve status"
-alias ssr="soomgo serve restart"
-alias ss="soomgo switch"
-
 alias lg="lazygit"
 
 # Connect Claude Code to a running Neovim instance
@@ -260,7 +249,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 . ~/dotfiles/zoxide.sh
 
-export HOMEBREW_GITHUB_API_TOKEN=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
 eval "$(jenv init -)"
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 # export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
@@ -297,7 +285,6 @@ export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
 # export CAROOT=$(mkcert -CAROOT)
 # export NODE_EXTRA_CA_CERTS=$(mkcert -CAROOT)/rootCA.pem
-export NODE_EXTRA_CA_CERTS="$HOME/zscaler-root-ca.pem"
 
 # Load secret keys like NPM_AUTH_KEY or CLAUSE_API_KEY
 if [ -f ~/.zsh_secrets ]; then
@@ -352,6 +339,5 @@ function y() {
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
-# Colima docker socket
-export DOCKER_HOST="unix:///Users/jsp/.colima/default/docker.sock"
-export NODE_OPTIONS="--max-old-space-size=8192"
+# Machine-local overrides (work/soomgo-specific aliases & functions); not tracked in the repo
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
