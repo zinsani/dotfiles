@@ -1,0 +1,10 @@
+# Template for per-machine jj identity. On each machine, copy this to
+# ~/.config/jj/conf.d/99-local.toml and fill in your name/email:
+#
+#   cp ~/dotfiles/.config/jj/conf.d/local.toml.example ~/.config/jj/conf.d/99-local.toml
+#
+# jj merges every ~/.config/jj/conf.d/*.toml on top of the symlinked
+# config.toml, so this identity stays untracked and machine-specific.
+[user]
+name = "Your Name"
+email = "you@example.com"

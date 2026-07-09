@@ -1,0 +1,64 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+# NOTE: per-machine user identity (name/email) lives in an untracked
+# ~/.config/jj/conf.d/*.toml layer, which jj merges on top of this file.
+# See conf.d/local.toml.example. Do not add [user] here.
+
+[revset-aliases]
+"trunk()"              = "main@origin"
+"closest_bookmark(to)" = "heads(::to & bookmarks())"
+"stack()"              = "reachable(@, mutable())"
+"stack_bookmarks()"    = "bookmarks() & stack()"
+
+[aliases]
+# trunk 최신화 후 전체 WIP 스택을 develop 로 rebase (self-healing: 항상 develop 기준으로 정규화)
+# develop@origin 명시 → stale trunk 무관 + published develop 이력 자동 제외, 마무리로 trunk()=develop 재확정
+sync        = ["util", "exec", "--", "sh", "-c",
+                "jj git fetch && jj rebase -s 'roots(develop@origin..mutable())' -d 'develop@origin' && jj set-trunk develop"]
+
+# fetch 없이 현재 trunk 기준으로 rebase만
+rebase-all  = ["rebase", "-s", "roots(trunk()..mutable())", "-d", "trunk()"]
+
+# 가장 가까운 북마크를 @-로 이동
+tug         = ["bookmark", "move",
+                "--from", "closest_bookmark(@)",
+                "--to", "@-"]
+
+# 현재 스택의 북마크들만 push
+push-stack  = ["git", "push", "-r", "stack_bookmarks()"]
+
+# 단축키
+pull        = ["git", "fetch"]
+push        = ["git", "push", "--tracked"]
+nb          = ["bookmark", "create", "-r", "@-"]
+ls          = ["log", "-r", "stack()"]
+lsd         = ["log", "-r", "stack()", "-T", "builtin_log_detailed"]
+filelog     = ["log", "-r", "all()", "-p"]
+
+# enter branch name or none for fzf suggesting from all branches
+set-trunk   = ["util", "exec", "--", "sh", "-c",
+                "b=${1:-$(jj bookmark list -T 'name ++ \"\\n\"' | sort -u | fzf --prompt='trunk> ')} && jj config set --repo 'revset-aliases.\"trunk()\"' \"${b}@origin\" && echo \"trunk() → ${b}@origin\"",
+                "_"]
+
+# develop에 merged된 로컬 bookmark 목록
+merged      = ["log", "-r", "bookmarks() & ancestors(develop@origin)", "--no-graph", "-T", "local_bookmarks ++ \"\\n\""]
+
+# [anchor 방식] develop 위 빈 앵커 커밋으로 epic 생성: jj epic-anchor <bookmark>
+# 앵커는 description 있는 빈 커밋(자동 abandon 방지), 그 위에서 스택 시작. trunk()은 develop 유지 → 앵커는 mutable.
+epic-anchor = ["util", "exec", "--", "sh", "-c",
+                "name=\"$1\" && [ -n \"$name\" ] || { echo 'usage: jj epic-anchor <bookmark>'; exit 1; }; jj git fetch && jj new develop@origin -m \"epic: ${name} (anchor base)\" && jj bookmark create \"$name\" -r @ && jj new && echo \"anchor epic created → ${name} (empty, on develop@origin); 작업은 현재 @에서 시작\"",
+                "_"]
+
+# [anchor 방식] 앵커 epic + 그 위 스택을 최신 develop 으로 전진 (빈 앵커라 앵커 자체는 충돌 없음)
+sync-anchor = ["util", "exec", "--", "sh", "-c",
+                "jj git fetch && jj rebase -b @ -d develop@origin"]
+
+[ui]
+# Use Difftastic by default
+# diff-formatter = ["difft", "--color=always", "$left", "$right"]
+# Use tool named "<name>" (see below)
+diff-formatter = "delta"
+diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
+
+[merge-tools.delta]
+diff-expected-exit-codes = [0, 1]

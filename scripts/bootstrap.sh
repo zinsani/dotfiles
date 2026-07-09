@@ -99,6 +99,19 @@ brew bundle install --file="$HOME/dotfiles/Brewfile"
 [ -d ~/dotfiles/lazyvim/.git ] && rm -rf ~/dotfiles/lazyvim/.git
 
 #=============================================================================
+# Jujutsu (jj) 설정
+#=============================================================================
+
+# jj config 심볼릭 링크 (repos/ 등 로컬 상태가 있어 config.toml 파일만 링크)
+[ -d ~/.config/jj ] || mkdir -p ~/.config/jj
+[ -e ~/.config/jj/config.toml ] && [ ! -L ~/.config/jj/config.toml ] && mv -f ~/.config/jj/config.toml ~/backup_dotfiles/
+[ -L ~/.config/jj/config.toml ] || ln -s ~/dotfiles/.config/jj/config.toml ~/.config/jj/config.toml
+
+# 머신별 사용자 identity(name/email)는 추적하지 않는 conf.d 레이어에 둔다
+[ -d ~/.config/jj/conf.d ] || mkdir -p ~/.config/jj/conf.d
+[ -f ~/.config/jj/conf.d/99-local.toml ] || cp ~/dotfiles/.config/jj/conf.d/local.toml.example ~/.config/jj/conf.d/99-local.toml
+
+#=============================================================================
 # Tmux 설정
 #=============================================================================
 
