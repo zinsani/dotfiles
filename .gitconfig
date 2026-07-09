@@ -3,9 +3,10 @@
   smudge = git-lfs smudge -- %f
   required = true
 	process = git-lfs filter-process
-[user]
-  name = Jason
-  email = jason.park@soomgo.com
+# Per-machine user identity (name/email) lives in ~/.gitconfig.local, which is
+# untracked. Copy .gitconfig.local.example and fill it in on each machine.
+[include]
+  path = ~/.gitconfig.local
 [core]
   excludesfile = $PROFILE/.gitignore_global
 	editor = nvim 

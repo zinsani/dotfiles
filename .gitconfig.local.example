@@ -1,0 +1,10 @@
+# Template for per-machine git identity. On each machine, copy this to
+# ~/.gitconfig.local and fill in your name/email:
+#
+#   cp ~/dotfiles/.gitconfig.local.example ~/.gitconfig.local
+#
+# ~/.gitconfig includes ~/.gitconfig.local, so this stays untracked and
+# machine-specific.
+[user]
+	name = Your Name
+	email = you@example.com
