@@ -1,11 +1,12 @@
 return {
   {
     "coder/claudecode.nvim",
+    lazy = false,
     dependencies = { "folke/snacks.nvim" },
     config = function()
       require("claudecode").setup({
-        panel = {
-          width = 0.4, -- 40% of screen width
+        terminal = {
+          provider = "none", -- no built-in panel; use external Claude Code via `cn`
         },
       })
     end,
