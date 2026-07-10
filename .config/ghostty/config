@@ -7,7 +7,7 @@
 # 영문/라틴 + Nerd 아이콘 (primary). 전체 Meslo Nerd Font(v3, 완전한 아이콘 세트).
 # 주의: "MesloLGS NF"(p10k subset)가 아니라 "MesloLGS Nerd Font"(전체) 사용.
 # brew install --cask font-meslo-lg-nerd-font
-font-family = "MesloLGS Nerd Font"
+font-family = "MesloLGS Nerd Font Mono"
 # 아이콘 보강 fallback (혹시 primary 에 없는 글리프 대비).
 font-family = "Symbols Nerd Font Mono"
 # 한글 fallback. 터미널 전용 monospace(한글=라틴 2셀 폭에 정확히 일치) → 정렬 완벽.
