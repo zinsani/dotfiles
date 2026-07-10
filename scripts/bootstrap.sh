@@ -112,6 +112,19 @@ brew bundle install --file="$HOME/dotfiles/Brewfile"
 [ -f ~/.config/jj/conf.d/99-local.toml ] || cp ~/dotfiles/.config/jj/conf.d/local.toml.example ~/.config/jj/conf.d/99-local.toml
 
 #=============================================================================
+# Ghostty 설정
+#=============================================================================
+
+# ghostty config 심볼릭 링크
+[ -d ~/.config/ghostty ] || mkdir -p ~/.config/ghostty
+[ -e ~/.config/ghostty/config ] && [ ! -L ~/.config/ghostty/config ] && mv -f ~/.config/ghostty/config ~/backup_dotfiles/
+[ -L ~/.config/ghostty/config ] || ln -s ~/dotfiles/.config/ghostty/config ~/.config/ghostty/config
+
+# Nerd Font (아이콘) — 전체 Meslo Nerd Font 필요 (p10k subset "MesloLGS NF" 아님)
+brew list --cask font-meslo-lg-nerd-font >/dev/null 2>&1 || brew install --cask font-meslo-lg-nerd-font
+brew list --cask font-symbols-only-nerd-font >/dev/null 2>&1 || brew install --cask font-symbols-only-nerd-font
+
+#=============================================================================
 # Tmux 설정
 #=============================================================================
 

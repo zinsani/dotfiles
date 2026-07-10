@@ -1,0 +1,31 @@
+# ~/.config/ghostty/config
+# kitty.conf 에서 이식 + ghostty 권장 설정. 세션/레이아웃은 tmux 사용.
+# 변경 후 적용: 실행 중이면 Cmd+Shift+, (reload_config)
+# 주의: ghostty 는 값 뒤 인라인 주석(값 # 설명)을 지원하지 않는다. 주석은 항상 별도 줄.
+
+# ── 폰트 ───────────────────────────────────────────────────
+# 영문/라틴 + Nerd 아이콘 (primary). 전체 Meslo Nerd Font(v3, 완전한 아이콘 세트).
+# 주의: "MesloLGS NF"(p10k subset)가 아니라 "MesloLGS Nerd Font"(전체) 사용.
+# brew install --cask font-meslo-lg-nerd-font
+font-family = "MesloLGS Nerd Font"
+# 아이콘 보강 fallback (혹시 primary 에 없는 글리프 대비).
+font-family = "Symbols Nerd Font Mono"
+# 한글 fallback. 터미널 전용 monospace(한글=라틴 2셀 폭에 정확히 일치) → 정렬 완벽.
+font-family = "Sarasa Term K"
+# kitty: font_size 14.0
+font-size = 14
+
+# ── kitty 에서 그대로 옮긴 것 ──────────────────────────────
+# kitty: macos_option_as_alt yes
+macos-option-as-alt = true
+
+# ── 멀티세션(윈도우 상태) 저장/복구 ───────────────────────
+# kitty 의 startup_session 대체. 종료 시 탭/스플릿/크기/작업디렉토리를
+# 저장했다가 다음 실행에서 복원한다. (cwd 복원은 shell-integration 필요)
+window-save-state = always
+
+# ── 선택: 테마 (ghostty 내장 테마) ────────────────────────
+# 목록: `ghostty +list-themes`
+# theme = catppuccin-mocha
+
+# 세션/스플릿 레이아웃/리플로우는 tmux 로 처리한다. (keybind 커스텀 없음 = ghostty 기본값 사용)
