@@ -214,23 +214,6 @@ cn() {
   cd "$folders" && CLAUDE_CODE_SSE_PORT="$port" claude "$@"
 }
 
-# jj (Jujutsu) helpers
-jj-describe() {
-  local ticket=$(jj bookmark list | grep -oE '[A-Z]+-[0-9]+' | head -1)
-  if [ -n "$ticket" ]; then
-    jj describe -m "[$ticket] $1"
-  else
-    jj describe -m "$1"
-  fi
-}
-
-jjmd() {                                                                                                                                    
-  local current=$(jj log -r '@-' --no-graph -T 'bookmarks.join(",")')                                                                       
-  jj git fetch                                                                                                                              
-  jj new @ 'trunk()' -m "Merge branch 'develop' into ${current}"
-}  
-
-
 ###-tns-completion-start-###
 if [ -f $HOME/.tnsrc ]; then 
     source $HOME/.tnsrc 

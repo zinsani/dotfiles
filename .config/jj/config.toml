@@ -11,10 +11,12 @@
 "stack_bookmarks()"    = "bookmarks() & stack()"
 
 [aliases]
-# trunk 최신화 후 전체 WIP 스택을 develop 로 rebase (self-healing: 항상 develop 기준으로 정규화)
+# trunk 최신화 후 "현재 스택만" develop 로 rebase (self-healing: 항상 develop 기준으로 정규화)
+# stack() = reachable(@, mutable()) → @가 속한 스택만 대상. 다른 워크스페이스의 orphan/머지완료 커밋은 건드리지 않음
+#   (mutable() 전체를 대상으로 하면 abandon 안 된 스쿼시 머지 커밋까지 재-rebase돼 conflict/divergence 폭포 발생)
 # develop@origin 명시 → stale trunk 무관 + published develop 이력 자동 제외, 마무리로 trunk()=develop 재확정
 sync        = ["util", "exec", "--", "sh", "-c",
-                "jj git fetch && jj rebase -s 'roots(develop@origin..mutable())' -d 'develop@origin' && jj set-trunk develop"]
+                "jj git fetch && jj rebase -s 'roots(develop@origin..stack())' -d 'develop@origin' && jj set-trunk develop"]
 
 # fetch 없이 현재 trunk 기준으로 rebase만
 rebase-all  = ["rebase", "-s", "roots(trunk()..mutable())", "-d", "trunk()"]
@@ -35,6 +37,13 @@ ls          = ["log", "-r", "stack()"]
 lsd         = ["log", "-r", "stack()", "-T", "builtin_log_detailed"]
 filelog     = ["log", "-r", "all()", "-p"]
 
+# describe + 현재 bookmark의 JIRA 티켓([MG-XXXX]) 자동 prefix. 사용: jj dt "feat: ..."
+# (built-in 'desc'/omz 'jjds'='jj desc' 와 충돌 방지 위해 'dt'로 명명 — describe+ticket)
+dt          = ["util", "exec", "--", "sh", "-c", '''
+ticket=$(jj bookmark list | grep -oE '[A-Z]+-[0-9]+' | head -1)
+if [ -n "$ticket" ]; then jj describe -m "[$ticket] $1"; else jj describe -m "$1"; fi
+''', "_"]
+
 # enter branch name or none for fzf suggesting from all branches
 set-trunk   = ["util", "exec", "--", "sh", "-c",
                 "b=${1:-$(jj bookmark list -T 'name ++ \"\\n\"' | sort -u | fzf --prompt='trunk> ')} && jj config set --repo 'revset-aliases.\"trunk()\"' \"${b}@origin\" && echo \"trunk() → ${b}@origin\"",
@@ -42,6 +51,21 @@ set-trunk   = ["util", "exec", "--", "sh", "-c",
 
 # develop에 merged된 로컬 bookmark 목록
 merged      = ["log", "-r", "bookmarks() & ancestors(develop@origin)", "--no-graph", "-T", "local_bookmarks ++ \"\\n\""]
+
+# 작업 마무리 정리: 스쿼시 머지되어 develop에 반영된 로컬 change/bookmark 제거 (jj sync 이후 실행)
+# 판정: develop 위에서 empty() (=변경이 이미 develop에 존재) + 설명에 PR번호(#\d+) 보유 → 머지 완료로 간주
+#   진행 중 작업(비어있지 않음)·현재 @·앵커(설명에 # 없음)는 자동 제외되어 안전.
+# 흐름: jj sync (스택을 develop 위로 rebase → 머지분은 empty로 접힘) → jj cleanup
+cleanup     = ["util", "exec", "--", "sh", "-c", '''
+R='mutable() & empty() & ~@ & description(regex:"#[0-9]+")'
+chs=$(jj log -r "$R" --no-graph -T 'change_id.shortest(8) ++ "\n"' | grep -v '^$')
+if [ -z "$chs" ]; then echo 'clean: 정리할 머지 완료 change 없음 (먼저 jj sync 실행 권장)'; exit 0; fi
+bms=$(jj log -r "bookmarks() & ($R)" --no-graph -T 'local_bookmarks ++ " "' | tr ' ' '\n' | grep -v '^$' | sort -u)
+echo '── 정리 대상 change ──'; echo "$chs"
+if [ -n "$bms" ]; then echo '── 삭제할 bookmark ──'; echo "$bms"; echo "$bms" | xargs -n1 jj bookmark delete; fi
+echo "$chs" | xargs jj abandon
+echo '✓ cleanup 완료'
+''', "_"]
 
 # [anchor 방식] develop 위 빈 앵커 커밋으로 epic 생성: jj epic-anchor <bookmark>
 # 앵커는 description 있는 빈 커밋(자동 abandon 방지), 그 위에서 스택 시작. trunk()은 develop 유지 → 앵커는 mutable.
@@ -52,6 +76,13 @@ epic-anchor = ["util", "exec", "--", "sh", "-c",
 # [anchor 방식] 앵커 epic + 그 위 스택을 최신 develop 으로 전진 (빈 앵커라 앵커 자체는 충돌 없음)
 sync-anchor = ["util", "exec", "--", "sh", "-c",
                 "jj git fetch && jj rebase -b @ -d develop@origin"]
+
+# develop(=trunk())을 현재 스택으로 병합 커밋 생성 (rebase 대신 merge 전략). 구 zshrc jjmd 이관
+merge-develop = ["util", "exec", "--", "sh", "-c", '''
+current=$(jj log -r '@-' --no-graph -T 'bookmarks.join(",")')
+jj git fetch
+jj new @ 'trunk()' -m "Merge branch 'develop' into ${current}"
+''']
 
 [ui]
 # Use Difftastic by default
