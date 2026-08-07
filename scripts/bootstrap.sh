@@ -125,6 +125,15 @@ brew list --cask font-meslo-lg-nerd-font >/dev/null 2>&1 || brew install --cask 
 brew list --cask font-symbols-only-nerd-font >/dev/null 2>&1 || brew install --cask font-symbols-only-nerd-font
 
 #=============================================================================
+# Herdr 설정
+#=============================================================================
+
+# herdr config 심볼릭 링크
+[ -d ~/.config/herdr ] || mkdir -p ~/.config/herdr
+[ -e ~/.config/herdr/config.toml ] && [ ! -L ~/.config/herdr/config.toml ] && mv -f ~/.config/herdr/config.toml ~/backup_dotfiles/
+[ -L ~/.config/herdr/config.toml ] || ln -s ~/dotfiles/.config/herdr/config.toml ~/.config/herdr/config.toml
+
+#=============================================================================
 # Tmux 설정
 #=============================================================================
 

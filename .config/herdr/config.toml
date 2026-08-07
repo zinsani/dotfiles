@@ -1,0 +1,6 @@
+# ~/.config/herdr/config.toml
+# 전체 옵션 목록/기본값: `herdr --default-config`
+
+[keys]
+# prefix 기본값은 ctrl+b (tmux와 충돌) → ctrl+a로 변경 (tmux도 ctrl+a 사용 중이라 동일하게 통일)
+prefix = "ctrl+a"
