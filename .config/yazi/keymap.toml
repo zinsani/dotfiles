@@ -1,0 +1,23 @@
+# ~/.config/yazi/keymap.toml
+# bookmarks.yazi: m=저장, '=이동, bd=삭제, bD=전체삭제
+# https://github.com/dedukun/bookmarks.yazi
+
+[[mgr.prepend_keymap]]
+on = ["m"]
+run = "plugin bookmarks save"
+desc = "Save current position as a bookmark"
+
+[[mgr.prepend_keymap]]
+on = ["'"]
+run = "plugin bookmarks jump"
+desc = "Jump to a bookmark"
+
+[[mgr.prepend_keymap]]
+on = ["b", "d"]
+run = "plugin bookmarks delete"
+desc = "Delete a bookmark"
+
+[[mgr.prepend_keymap]]
+on = ["b", "D"]
+run = "plugin bookmarks delete_all"
+desc = "Delete all bookmarks"

@@ -134,6 +134,20 @@ brew list --cask font-symbols-only-nerd-font >/dev/null 2>&1 || brew install --c
 [ -L ~/.config/herdr/config.toml ] || ln -s ~/dotfiles/.config/herdr/config.toml ~/.config/herdr/config.toml
 
 #=============================================================================
+# Yazi 설정
+#=============================================================================
+
+# yazi config 심볼릭 링크 (plugins/ 는 package.toml 기준으로 재설치되는 캐시라 추적 제외)
+[ -d ~/.config/yazi ] || mkdir -p ~/.config/yazi
+for f in keymap.toml package.toml; do
+  [ -e ~/.config/yazi/$f ] && [ ! -L ~/.config/yazi/$f ] && mv -f ~/.config/yazi/$f ~/backup_dotfiles/
+  [ -L ~/.config/yazi/$f ] || ln -s ~/dotfiles/.config/yazi/$f ~/.config/yazi/$f
+done
+
+# package.toml 에 선언된 플러그인(bookmarks.yazi) 설치
+ya pkg install
+
+#=============================================================================
 # Tmux 설정
 #=============================================================================
 

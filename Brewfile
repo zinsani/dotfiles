@@ -94,6 +94,8 @@ brew "tmux"
 brew "tree"
 # Watch files and take action when they change
 brew "watchman"
+# Blazing fast terminal file manager
+brew "yazi"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 brew "spring-io/tap/spring-boot"
