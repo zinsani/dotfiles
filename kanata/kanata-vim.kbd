@@ -169,11 +169,11 @@
 ;; ============================================
 (deflayer normal
   brdn brup _    _    _    _    prev pp   next mute vold volu
-  (chord toggle esc) 1 2 3 4 5 6 7 8 9 0 - = bspc
+  (chord toggle esc) 1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @meh  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @escctrl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft @hm-z @hm-x @hm-c @hm-v b    n    @hm-m @hm-comma @hm-dot @hm-slash rsft up
-  (chord toggle fn) lctl grv @vimldr spc @symldr = left down rght
+  (chord toggle fn) lctl grv  @vimldr        spc            @symldr =    left down rght
 )
 
 ;; ============================================
@@ -182,9 +182,9 @@
 (deflayer vim
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    @vimw _   _    _    @vimy @vimu @vimi @vimo @vimp _   _    _
-  _    _    _    _ _  @vimgg @vimh @vimj @vimk @viml @vim$ _   _
-  @vimG _   @vimc @vimx _ @vimb  _    _    _    _    _    _    _
+  _     _     @vimw _     _     _     @vimy @vimu @vimi @vimo @vimp _     _     _
+  _      _      _      _      _      @vimgg @vimh  @vimj  @vimk  @viml  @vim$  _      _
+  @vimG _     @vimc @vimx _     @vimb _     _     _     _     _     _     _
   _    _    _    _              _              _    _    _    _    _
 )
 
