@@ -44,6 +44,8 @@ brew "gradle"
 brew "node"
 # Simple zero-configuration command-line HTTP server
 brew "http-server"
+# Review-first terminal diff viewer (jj/git pager)
+brew "hunk"
 # Tools and libraries to manipulate images in many formats
 brew "imagemagick"
 # Manage your Java environment

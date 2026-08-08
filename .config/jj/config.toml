@@ -56,9 +56,8 @@ sync-anchor = ["util", "exec", "--", "sh", "-c",
 [ui]
 # Use Difftastic by default
 # diff-formatter = ["difft", "--color=always", "$left", "$right"]
-# Use tool named "<name>" (see below)
-diff-formatter = "delta"
+# git 포맷으로 diff 생성 → pager(hunk)가 파싱
+diff-formatter = ":git"
+# hunk pager: git/jj pager wrapper (review-first terminal diff viewer)
+pager = ["hunk", "pager"]
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
-
-[merge-tools.delta]
-diff-expected-exit-codes = [0, 1]
