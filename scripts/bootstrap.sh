@@ -93,6 +93,8 @@ mkdir -p ~/.claude
 [ -e ~/.claude/settings.json ] && [ ! -L ~/.claude/settings.json ] && mv -f ~/.claude/settings.json ~/backup_dotfiles/
 [ -L ~/.claude/settings.json ] || ln -s ~/dotfiles/claude/settings.json ~/.claude/settings.json
 
+# hooks/commands/skills 등 나머지는 회사 업무 내용이 많아 의도적으로 동기화하지 않는다.
+
 #=============================================================================
 # Neovim (LazyVim) 설정
 #=============================================================================

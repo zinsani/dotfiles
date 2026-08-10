@@ -1,10 +1,36 @@
-onboarding = false
 # ~/.config/herdr/config.toml
 # 전체 옵션 목록/기본값: `herdr --default-config`
+#
+# 주의: herdr 서버는 기동 시점에만 이 파일을 읽는다.
+# 수정 후 `herdr server reload-config` 로 반영할 것.
+
+onboarding = false
 
 [keys]
-# prefix 기본값은 ctrl+b (tmux와 충돌) → ctrl+a로 변경 (tmux도 ctrl+a 사용 중이라 동일하게 통일)
+# prefix 기본값은 ctrl+b → ctrl+a (tmux 근육기억 유지)
+# trade-off: nvim 의 Ctrl-A(숫자 증가)가 herdr 에 먹혀 동작하지 않는다. 의도적으로 포기.
 prefix = "ctrl+a"
+
+# 프로젝트(= jj workspace) 간 직행. 사이드바 순서대로 1..9
+switch_workspace = "prefix+shift+1..9"
+
+# blocked 상태 에이전트로 직행
+focus_agent = "prefix+alt+1..9"
+
+# nvim ↔ claude 왕복 전용.
+# prefix+tab 은 기본 cycle_pane_next 라 3-pane 탭에서 의미가 달라지므로 space 를 쓴다.
+last_pane = "prefix+space"
+
+[[keys.command]]
+key = "prefix+alt+g"
+type = "popup"
+command = "lazygit"
+width = "90%"
+height = "90%"
 
 [ui.toast]
 delivery = "system"
+
+[experimental]
+# 서버 재시작 후에도 pane 스크롤백 유지
+pane_history = true
