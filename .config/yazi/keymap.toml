@@ -1,9 +1,10 @@
 # ~/.config/yazi/keymap.toml
-# bookmarks.yazi: m=저장, '=이동, bd=삭제, bD=전체삭제
+# bookmarks.yazi: bm=저장, '=이동, bd=삭제, bD=전체삭제
 # https://github.com/dedukun/bookmarks.yazi
+# NOTE: 단일 키 "m" 은 yazi 기본 linemode 프리픽스(ms/mp/mm/mb/mo/mn)와 충돌하므로 쓰지 않는다.
 
 [[mgr.prepend_keymap]]
-on = ["m"]
+on = ["b", "m"]
 run = "plugin bookmarks save"
 desc = "Save current position as a bookmark"
 
