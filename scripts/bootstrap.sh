@@ -85,10 +85,13 @@ brew bundle install --file="$HOME/dotfiles/Brewfile"
 [ -L ~/.gitconfig ] || ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 [ -L ~/.gitignore_global ] || ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global
 
-# Claude Code 전역 설정 (CLAUDE.md: 시스템 알림 규칙 등, RTK.md: rtk 프록시 가이드)
+# Claude Code 전역 설정 (CLAUDE.md: 시스템 알림 규칙 등, RTK.md: rtk 프록시 가이드,
+# settings.json: hooks/permissions/statusLine/plugins)
 mkdir -p ~/.claude
 [ -L ~/.claude/CLAUDE.md ] || ln -s ~/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 [ -L ~/.claude/RTK.md ] || ln -s ~/dotfiles/claude/RTK.md ~/.claude/RTK.md
+[ -e ~/.claude/settings.json ] && [ ! -L ~/.claude/settings.json ] && mv -f ~/.claude/settings.json ~/backup_dotfiles/
+[ -L ~/.claude/settings.json ] || ln -s ~/dotfiles/claude/settings.json ~/.claude/settings.json
 
 #=============================================================================
 # Neovim (LazyVim) 설정
