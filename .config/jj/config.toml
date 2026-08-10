@@ -83,12 +83,22 @@ current=$(jj log -r '@-' --no-graph -T 'bookmarks.join(",")')
 jj git fetch
 jj new @ 'trunk()' -m "Merge branch 'develop' into ${current}"
 ''']
+# hunk 이 기본 뷰어이므로, delta 로 보고 싶을 때만 쓰는 폴백 alias
+ddiff = ["--config=ui.pager=delta", "--config=ui.diff-formatter=delta", "diff"]
+dshow = ["--config=ui.pager=delta", "--config=ui.diff-formatter=delta", "show"]
 
 [ui]
-# Use Difftastic by default
-# diff-formatter = ["difft", "--color=always", "$left", "$right"]
-# git 포맷으로 diff 생성 → pager(hunk)가 파싱
-diff-formatter = ":git"
-# hunk pager: git/jj pager wrapper (review-first terminal diff viewer)
+# hunk(https://hunk.dev) 을 기본 diff 뷰어로 사용.
+# pager 가 diff 를 감지해 TUI 로 렌더하고, 그 외 출력(log 등)은 그대로 통과시킨다.
+# → diff-formatter 는 반드시 raw git diff(":git")여야 hunk 가 파싱 가능.
 pager = ["hunk", "pager"]
+diff-formatter = ":git"
+# 이전 설정: difftastic / delta
+# diff-formatter = ["difft", "--color=always", "$left", "$right"]
+# diff-formatter = "delta"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
+default-command = "log"
+
+# ddiff/dshow 폴백 alias 가 delta 를 named tool 로 쓰므로 유지
+[merge-tools.delta]
+diff-expected-exit-codes = [0, 1]
