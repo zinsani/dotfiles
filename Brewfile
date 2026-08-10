@@ -88,6 +88,8 @@ brew "python@3.11"
 brew "python@3.12"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Send macOS User Notifications from the command-line (Claude Code 장시간 작업 알림)
+brew "terminal-notifier"
 # Terminal multiplexer
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
