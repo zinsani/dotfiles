@@ -1,5 +1,6 @@
 # ~/.config/herdr/config.toml
 # 전체 옵션 목록/기본값: `herdr --default-config`
+# 검증: `herdr config check` (적용 없이 파싱만)
 #
 # 주의: herdr 서버는 기동 시점에만 이 파일을 읽는다.
 # 수정 후 `herdr server reload-config` 로 반영할 것.
@@ -11,15 +12,41 @@ onboarding = false
 # trade-off: nvim 의 Ctrl-A(숫자 증가)가 herdr 에 먹혀 동작하지 않는다. 의도적으로 포기.
 prefix = "ctrl+a"
 
+#--- tmux 습관에 맞춘 재배치 ---------------------------------------------------
+# herdr 기본은 prefix+q. tmux 에서 q 는 pane 번호 표시라 오폭 위험이 크다.
+detach = "prefix+d"
+# reload_config(prefix+shift+r) 과 resize_mode(prefix+r) 은 herdr 기본값을 쓴다.
+# tmux 의 `bind r source-file` 습관과는 어긋나지만, 리로드보다 resize 를
+# 훨씬 자주 쓰므로 짧은 키를 resize 에 준다.
+# tmux 의 `,` = rename-window.
+rename_tab = "prefix+comma"
+# tmux 의 `;` = last-pane. nvim <-> claude 왕복에 제일 자주 쓰게 된다.
+last_pane = "prefix+semicolon"
+# tmux 의 `|` = 좌우 분할. punctuation+modifier 는 터미널 의존이지만
+# Ghostty 에서는 동작 확인됨. 다른 터미널에서 안 먹으면 prefix+v(기본값)로.
+split_vertical = "prefix+|"
+
+# 그대로 두는 것들 (이미 tmux 와 일치):
+#   split_horizontal = prefix+minus / new_tab = prefix+c / zoom = prefix+z
+#   focus_pane_* = prefix+h,j,k,l   / previous_tab,next_tab = prefix+p,n
+#   switch_tab = prefix+1..9        / close_pane = prefix+x
+#   edit_scrollback = prefix+e      -> 스크롤백을 $EDITOR(nvim)로 연다
+
+#--- herdr 고유 기능 (tmux 에 대응 없음) ---------------------------------------
+# 아래 둘은 herdr 기본값이 빈 문자열(바인딩 없음)이다. 여기서 새로 켠 것이고,
+# 키 조합은 herdr 주석의 예시를 그대로 따랐다.
+# 기본값이 있는 인덱스 바인딩은 switch_tab = "prefix+1..9" 하나뿐이다.
+
 # 프로젝트(= jj workspace) 간 직행. 사이드바 순서대로 1..9
 switch_workspace = "prefix+shift+1..9"
 
-# blocked 상태 에이전트로 직행
+# blocked 상태 에이전트로 직행.
+# alt 조합은 herdr 이 "터미널 의존" 으로 분류하는 부류지만 Ghostty 에서는 동작한다.
 focus_agent = "prefix+alt+1..9"
 
-# nvim ↔ claude 왕복 전용.
-# prefix+tab 은 기본 cycle_pane_next 라 3-pane 탭에서 의미가 달라지므로 space 를 쓴다.
-last_pane = "prefix+space"
+# tmux 의 `bind -r H/J/K/L resize-pane` 대응은 두지 않는다.
+# herdr 에는 resize_pane_* 액션이 없어 CLI 를 shell 커맨드로 걸어야 하는데,
+# 그 방식은 tmux 의 `-r` 같은 반복이 안 돼서 이득이 없다. resize_mode 를 쓸 것.
 
 [[keys.command]]
 key = "prefix+alt+g"
