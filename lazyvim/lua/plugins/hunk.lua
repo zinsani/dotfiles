@@ -28,6 +28,22 @@ return {
         end,
         desc = "Hunk: show (last commit)",
       },
+      -- 현재 파일만. hunk CLI 는 `hunk diff [target] [-- <pathspec...>]` 를 받는다.
+      -- 경로는 레포 루트 기준 상대경로여야 pathspec 으로 먹는다.
+      {
+        "<leader>gF",
+        function()
+          local root = LazyVim.root()
+          local file = vim.fn.expand("%:p")
+          if file == "" then
+            vim.notify("현재 버퍼에 파일이 없다", vim.log.levels.WARN)
+            return
+          end
+          local rel = vim.fs.relpath(root, file) or file
+          Snacks.terminal({ "hunk", "diff", "--", rel }, { cwd = root, interactive = true })
+        end,
+        desc = "Hunk: diff current file",
+      },
     },
   },
 }
