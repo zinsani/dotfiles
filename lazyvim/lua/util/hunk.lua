@@ -87,6 +87,79 @@ function M.file_diff()
   end)
 end
 
+---repoRoot 가 일치하는 라이브 세션 id 를 찾는다. 콜백에 (session_id, err) 를 넘긴다.
+---
+---세션이 여러 개면 --repo 는 "Multiple active sessions match" 로 실패하므로,
+---항상 session id 로 지정해야 한다. 같은 레포에 둘 이상이면 가장 최근 것을 쓴다.
+local function find_session(root, cb)
+  vim.system({ "hunk", "session", "list", "--json" }, { text = true }, function(res)
+    vim.schedule(function()
+      local ok, data = pcall(vim.json.decode, res.stdout or "")
+      if not ok or type(data) ~= "table" or not data.sessions then
+        return cb(nil, "hunk 세션 목록을 읽지 못했다")
+      end
+
+      local matches = vim.tbl_filter(function(s)
+        return s.repoRoot == root
+      end, data.sessions)
+
+      if #matches == 0 then
+        return cb(nil, "이 레포에 열려 있는 hunk 세션이 없다. <leader>gd 로 먼저 열 것")
+      end
+
+      table.sort(matches, function(a, b)
+        return (a.launchedAt or "") > (b.launchedAt or "")
+      end)
+      if #matches > 1 then
+        vim.notify(("hunk 세션이 %d개다. 가장 최근 것을 쓴다."):format(#matches), vim.log.levels.WARN)
+      end
+      cb(matches[1].sessionId)
+    end)
+  end)
+end
+
+---커서가 놓인 줄에 hunk 리뷰 노트를 단다.
+---
+---nvim 버퍼의 줄 번호는 작업 트리(변경 후) 기준이므로 --new-line 을 쓴다.
+function M.comment_here()
+  local root, rel = target()
+  if not root then
+    return
+  end
+  local lnum = vim.api.nvim_win_get_cursor(0)[1]
+
+  find_session(root, function(session, err)
+    if not session then
+      vim.notify(err, vim.log.levels.WARN)
+      return
+    end
+
+    vim.ui.input({ prompt = ("hunk note @ %s:%d > "):format(rel, lnum) }, function(summary)
+      if not summary or vim.trim(summary) == "" then
+        return
+      end
+
+      local cmd = {
+        "hunk", "session", "comment", "add", session,
+        "--file", rel,
+        "--new-line", tostring(lnum),
+        "--summary", summary,
+        "--focus", -- 사용자 뷰포트도 그 줄로 옮긴다
+      }
+      vim.system(cmd, { cwd = root, text = true }, function(res)
+        vim.schedule(function()
+          if res.code == 0 then
+            vim.notify(("hunk 노트 추가: %s:%d"):format(rel, lnum), vim.log.levels.INFO)
+          else
+            -- 변경되지 않은 파일/라인이면 hunk 이 거부한다
+            vim.notify("hunk 노트 실패: " .. vim.trim((res.stderr or "") .. (res.stdout or "")), vim.log.levels.ERROR)
+          end
+        end)
+      end)
+    end)
+  end)
+end
+
 ---현재 파일을 마지막으로 수정한 커밋의 diff 를 연다.
 function M.file_last_commit()
   local root, rel = target()

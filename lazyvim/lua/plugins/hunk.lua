@@ -55,6 +55,15 @@ return {
         end,
         desc = "Hunk: current file's last commit",
       },
+      -- 커서 줄에 리뷰 노트. hunk TUI 의 c 는 hunk 단위라 라인을 못 고르는데,
+      -- session CLI 는 --new-line 으로 줄을 직접 받는다.
+      {
+        "<leader>gc",
+        function()
+          require("util.hunk").comment_here()
+        end,
+        desc = "Hunk: comment on cursor line",
+      },
     },
   },
 }
