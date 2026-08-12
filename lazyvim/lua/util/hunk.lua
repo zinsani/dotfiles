@@ -24,8 +24,37 @@ local function target()
   return root, vim.fs.relpath(root, file) or file
 end
 
+---hunk TUI 를 풀윈도우로 띄운다.
+---
+---width/height = 0 은 snacks.win 규약으로 "전체"를 뜻한다 (기본값은 0.9 플로트).
+---테두리를 없애 편집 화면과 같은 크기로 쓴다.
+---
+---종료: 터미널 모드에서는 hunk 자신이 q 를 처리하고, 빠져나온 뒤(<C-\><C-n>)에는
+---snacks.win 기본 키맵인 q=close 가 받는다. hunk 프로세스가 끝나면
+---interactive=true 에 딸린 auto_close 가 창을 닫는다.
 local function open(args, root)
-  Snacks.terminal(vim.list_extend({ "hunk" }, args), { cwd = root, interactive = true })
+  Snacks.terminal(vim.list_extend({ "hunk" }, args), {
+    cwd = root,
+    interactive = true,
+    win = {
+      width = 0,
+      height = 0,
+      border = "none",
+      keys = { q = "close" },
+    },
+  })
+end
+
+---작업 사본 전체 diff
+function M.diff()
+  local root = vim.fs.root(0, { ".jj", ".git" }) or LazyVim.root()
+  open({ "diff" }, root)
+end
+
+---직전 커밋 전체 show
+function M.show()
+  local root = vim.fs.root(0, { ".jj", ".git" }) or LazyVim.root()
+  open({ "show" }, root)
 end
 
 ---작업 사본의 미커밋 변경을 현재 파일 범위로 연다.

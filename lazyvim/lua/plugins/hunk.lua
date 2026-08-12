@@ -22,14 +22,14 @@ return {
       {
         "<leader>gd",
         function()
-          Snacks.terminal({ "hunk", "diff" }, { cwd = LazyVim.root(), interactive = true })
+          require("util.hunk").diff()
         end,
         desc = "Hunk: diff (working copy)",
       },
       {
         "<leader>gD",
         function()
-          Snacks.terminal({ "hunk", "show" }, { cwd = LazyVim.root(), interactive = true })
+          require("util.hunk").show()
         end,
         desc = "Hunk: show (last commit)",
       },
