@@ -11,18 +11,23 @@ return {
   },
 
   -- hunk CLI 를 float 터미널로 띄우는 키맵 (jj/git 저장소 자동 감지)
+  --
+  -- 키 자리: <leader>gd/gD. 원래 <leader>gh 였는데 LazyVim 의 gitsigns hunk
+  -- 프리픽스(ghd/ghs/ghr/ghb/ghp...)와 겹쳐, 단독 gh 를 누르면 nvim 이 더 긴
+  -- 매핑을 기다리느라 timeoutlen(기본 1s)만큼 지연됐다. gd/gD 는 difftastic 이
+  -- 쓰던 자리인데 jj diff 를 hunk 으로 옮긴 뒤 잔재로만 남아 있어 함께 제거했다.
   {
     "folke/snacks.nvim",
     keys = {
       {
-        "<leader>gh",
+        "<leader>gd",
         function()
           Snacks.terminal({ "hunk", "diff" }, { cwd = LazyVim.root(), interactive = true })
         end,
         desc = "Hunk: diff (working copy)",
       },
       {
-        "<leader>gH",
+        "<leader>gD",
         function()
           Snacks.terminal({ "hunk", "show" }, { cwd = LazyVim.root(), interactive = true })
         end,
