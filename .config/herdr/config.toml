@@ -48,6 +48,52 @@ focus_agent = "prefix+alt+1..9"
 # herdr 에는 resize_pane_* 액션이 없어 CLI 를 shell 커맨드로 걸어야 하는데,
 # 그 방식은 tmux 의 `-r` 같은 반복이 안 돼서 이득이 없다. resize_mode 를 쓸 것.
 
+#--- herdr-splits.nvim: nvim 스플릿 ↔ herdr pane 통합 이동/리사이즈 ----------
+# prefix 없이 동작한다. herdr 이 키를 받아 pane 이 nvim 이면 그 안으로 전달하고,
+# 아니면 직접 pane 을 옮긴다. nvim 쪽 짝은 lazyvim/lua/plugins/herdr-splits.lua.
+#
+# 주의: ctrl+h 는 터미널에서 ^H(백스페이스)다. 셸에서 백스페이스가 이상하면
+# 이 바인딩이 원인이다.
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "herdr-splits.nav-left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "herdr-splits.nav-down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "herdr-splits.nav-up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "herdr-splits.nav-right"
+
+[[keys.command]]
+key = "alt+h"
+type = "plugin_action"
+command = "herdr-splits.resize-left"
+
+[[keys.command]]
+key = "alt+j"
+type = "plugin_action"
+command = "herdr-splits.resize-down"
+
+[[keys.command]]
+key = "alt+k"
+type = "plugin_action"
+command = "herdr-splits.resize-up"
+
+[[keys.command]]
+key = "alt+l"
+type = "plugin_action"
+command = "herdr-splits.resize-right"
+
 [[keys.command]]
 key = "prefix+alt+g"
 type = "popup"
@@ -61,3 +107,8 @@ delivery = "system"
 [experimental]
 # 서버 재시작 후에도 pane 스크롤백 유지
 pane_history = true
+
+# pane 안의 Kitty graphics 를 바깥 터미널로 전달한다. 기본값 false 라서
+# yazi 이미지 프리뷰가 herdr 안에서만 빈 칸으로 보였다.
+# 바깥 터미널이 Kitty graphics 를 지원해야 한다 (Ghostty 는 지원).
+kitty_graphics = true
