@@ -324,3 +324,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 # Machine-local overrides (work/soomgo-specific aliases & functions); not tracked in the repo
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# PR 리뷰 워크스페이스 CLI (prr/prh/prp)
+[ -f "$HOME/workspace/soomgo/pr-tools/review-aliases.zsh" ] && source "$HOME/workspace/soomgo/pr-tools/review-aliases.zsh"
