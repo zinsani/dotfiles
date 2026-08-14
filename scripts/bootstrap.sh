@@ -163,6 +163,55 @@ ya pkg install
 [ -d ~/.tmux/plugins/tpm ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 #=============================================================================
+# Vue 2.7 LSP 고정 설치
+#=============================================================================
+
+# @vue/language-server 는 3.1.0 에서 Vue 2 지원을 제거했으므로 3.0.x 가 상한선이다.
+# Mason 은 language-server 와 typescript-plugin 의 버전을 함께 고정해주지 못해
+# (플러그인만 최신으로 딸려온다) Mason 밖에 두고 nvim 이 이 경로를 직접 가리킨다.
+# 짝: lazyvim/lua/plugins/vue.lua
+mkdir -p ~/.local/share/vue-ls-3.0
+cp -f ~/dotfiles/lazyvim/vue-ls/package.json ~/.local/share/vue-ls-3.0/package.json
+if [ ! -x ~/.local/share/vue-ls-3.0/node_modules/.bin/vue-language-server ]; then
+  (cd ~/.local/share/vue-ls-3.0 && npm install --silent)
+fi
+
+#=============================================================================
+# herdr 플러그인
+#=============================================================================
+
+# herdr-splits: nvim 스플릿 <-> herdr pane 통합 이동/리사이즈.
+# nvim 쪽은 lazy 가 알아서 깔지만 herdr 쪽 절반이 없으면 이동 키가 죽는다.
+# 짝: lazyvim/lua/plugins/herdr-splits.lua, .config/herdr/config.toml 의 ctrl/alt+hjkl
+if command -v herdr >/dev/null 2>&1; then
+  if ! herdr plugin list 2>/dev/null | grep -q "herdr-splits"; then
+    herdr plugin install lmilojevicc/herdr-splits.nvim --yes
+  fi
+fi
+
+#=============================================================================
+# kanata 자동시작 (수동 단계 안내)
+#=============================================================================
+
+# kanata 는 키 입력을 가로채므로 root 권한이 필요하다. LaunchAgent 가 아니라
+# LaunchDaemon 으로 넣어야 하고, sudo 가 필요해 이 스크립트에서 자동화하지 않는다.
+# 설치돼 있지 않으면 명령만 안내한다.
+if [ ! -f /Library/LaunchDaemons/com.kanata.plist ]; then
+  echo ""
+  echo "⚠️  kanata 자동시작이 설치되지 않았습니다. 재부팅하면 키 리맵이 사라집니다"
+  echo "    (caps->ctrl, Tab 홀드->meh, 바닥열 mods). aerospace 도 meh 에 의존합니다."
+  echo ""
+  echo "    sudo cp ~/dotfiles/kanata/com.kanata.plist /Library/LaunchDaemons/"
+  echo "    sudo chown root:wheel /Library/LaunchDaemons/com.kanata.plist"
+  echo "    sudo chmod 644 /Library/LaunchDaemons/com.kanata.plist"
+  echo "    sudo launchctl bootstrap system /Library/LaunchDaemons/com.kanata.plist"
+  echo ""
+  echo "    설치 후 시스템 설정 > 개인정보 보호 및 보안 > 입력 모니터링 에서"
+  echo "    /opt/homebrew/bin/kanata 를 허용해야 합니다."
+  echo ""
+fi
+
+#=============================================================================
 # 완료
 #=============================================================================
 
