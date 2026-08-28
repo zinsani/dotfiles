@@ -73,9 +73,13 @@ epic-anchor = ["util", "exec", "--", "sh", "-c",
                 "name=\"$1\" && [ -n \"$name\" ] || { echo 'usage: jj epic-anchor <bookmark>'; exit 1; }; jj git fetch && jj new develop@origin -m \"epic: ${name} (anchor base)\" && jj bookmark create \"$name\" -r @ && jj new && echo \"anchor epic created → ${name} (empty, on develop@origin); 작업은 현재 @에서 시작\"",
                 "_"]
 
-# [anchor 방식] 앵커 epic + 그 위 스택을 최신 develop 으로 전진 (빈 앵커라 앵커 자체는 충돌 없음)
+# [anchor 방식] 앵커 epic + 그 위 스택을 최신 develop 으로 전진.
+# `-b @` 는 develop..@ 전체(에픽 root 부터 tip 까지)를 정확히 잡아내지만, PR 을 squash-merge
+# 할 때마다 그 커밋들이 origin 에 push 되어 immutable_heads() 에 걸린다 — 앵커가 비어 있어도
+# 그 위에 쌓인 PR 커밋들은 immutable 이라 --ignore-immutable 없인 그대로 막힌다
+# (실측 2026-08-28: "Commit ... is immutable" — 39개 커밋).
 sync-anchor = ["util", "exec", "--", "sh", "-c",
-                "jj git fetch && jj rebase -b @ -d develop@origin"]
+                "jj git fetch && jj rebase -b @ -d develop@origin --ignore-immutable"]
 
 # develop(=trunk())을 현재 스택으로 병합 커밋 생성 (rebase 대신 merge 전략). 구 zshrc jjmd 이관
 merge-develop = ["util", "exec", "--", "sh", "-c", '''
