@@ -211,6 +211,24 @@ if [ ! -f /Library/LaunchDaemons/com.kanata.plist ]; then
   echo ""
 fi
 
+# kanata 는 Karabiner VirtualHIDDevice 드라이버 v6.2.0 의 IPC 만 안다.
+# Karabiner-Elements 16.1.0+ 가 깔려 있으면 드라이버가 v8.x 로 올라가서
+# kanata 는 떠 있는데 키가 하나도 안 먹는 상태가 된다. 자동 업데이트로
+# 조용히 발생하므로 부트스트랩 때 한 번 짚어준다.
+KANATA_DAEMON_PLIST="/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/Info.plist"
+if [ -f "$KANATA_DAEMON_PLIST" ]; then
+  KANATA_DRIVER_VERSION="$(defaults read "$KANATA_DAEMON_PLIST" CFBundleVersion 2>/dev/null || true)"
+  if [ -n "$KANATA_DRIVER_VERSION" ] && [ "$KANATA_DRIVER_VERSION" != "6.2.0" ]; then
+    echo ""
+    echo "⚠️  Karabiner 드라이버가 v${KANATA_DRIVER_VERSION} 입니다. kanata 는 v6.2.0 만 지원합니다"
+    echo "    (드라이버 v7 에서 IPC 가 datagram -> Unix stream 으로 바뀜)."
+    echo "    이 상태면 kanata 프로세스는 살아있어도 키 리맵이 전혀 안 됩니다."
+    echo ""
+    echo "    sudo ~/dotfiles/scripts/kanata-driver-fix.sh"
+    echo ""
+  fi
+fi
+
 #=============================================================================
 # 완료
 #=============================================================================
